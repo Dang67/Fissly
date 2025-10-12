@@ -7,13 +7,15 @@ import {StyleProps} from "react-native-reanimated";
 
 type Props = PropsWithChildren<{
     children?: ReactNode;
+    color?: string;
     style?: StyleProps;
     glassEffect?: boolean;
 }>;
 
-export default function Card({children, style, glassEffect}: Props) {
+export default function Card({children, color, style, glassEffect}: Props) {
     const colors = useCustomColors();
     const dfGlassEffect = glassEffect ? 'clear' : 'regular';
+    const dfColor = color ? color : undefined;
 
     return (
         isIOS ?
@@ -25,6 +27,7 @@ export default function Card({children, style, glassEffect}: Props) {
                         ...style,
                     }}
                     glassEffectStyle={dfGlassEffect}
+                    tintColor={dfColor}
                     isInteractive={true}
                 >
                     {children}
@@ -36,7 +39,7 @@ export default function Card({children, style, glassEffect}: Props) {
                 <View style={{
                     ...styles.card,
                     ...style,
-                    backgroundColor: colors.card,
+                    backgroundColor: color ? color : colors.card,
                 }}>
                     {children}
                 </View>

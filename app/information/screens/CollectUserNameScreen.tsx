@@ -1,20 +1,20 @@
-import {BackHandler, StyleSheet, TextInput, View} from "react-native";
+import {BackHandler, Keyboard, StyleSheet, TextInput, TouchableWithoutFeedback, View} from "react-native";
 import {useCustomColors} from "@/hooks/useCustomColors";
 import {SafeAreaView} from "react-native-safe-area-context";
 import CustomText from "@/components/CustomText";
 import {padding, textStyles} from "@/constants/theme";
 import React, {useCallback, useState} from "react";
 import {router} from "expo-router";
-import Button from "@/components/Button";
 import SpaceVertical from "@/components/SpaceVertical";
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
+import FooterButtons from "@/app/information/components/FooterButtons";
+import {strings} from "@/app/information/strings";
 
 
 export default function CollectUserNameScreen() {
     useFocusEffect(
         useCallback(() => {
             const onBackPress = () => {
-                // Chặn nút back
                 return true;
             };
 
@@ -34,36 +34,33 @@ export default function CollectUserNameScreen() {
     const [name, setName] = useState<string>();
 
     return (
-        <SafeAreaView style={{...styles.container, backgroundColor: bgColor}}>
-            <View>
-                <CustomText style={'title'} color={titleColor} text={'Tôi có thể gọi bạn là gì?'}/>
-                <SpaceVertical/>
-                <TextInput
-                    value={name}
-                    onChangeText={setName}
-                    style={{
-                        ...styles.input,
-                        color: colors.textOnBackground,
-                    }}
-                    placeholder='Nhập tên của bạn'
-                    keyboardType='default'
-                    autoComplete='name'
-                    clearButtonMode='while-editing'
-                    textAlign={'center'}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <SafeAreaView style={{...styles.container, backgroundColor: bgColor}}>
+                <View>
+                    <CustomText style={'title'} color={titleColor} text={strings.userName.title}/>
+                    <SpaceVertical/>
+                    <TextInput
+                        value={name}
+                        onChangeText={setName}
+                        style={{
+                            ...styles.input,
+                            color: colors.textOnBackground,
+                        }}
+                        placeholder={strings.userName.input.placeholder}
+                        autoComplete={'name'}
+                        clearButtonMode={'while-editing'}
+                        textAlign={'center'}
+                    />
+                </View>
+                <FooterButtons
+                    backButton={false}
+                    showContinueButton={!!name}
+                    onPressContinueButton={
+                        () => router.push('/information/screens/CollectOtherInformationScreen')
+                    }
                 />
-            </View>
-            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                {name &&
-                    <View style={{flex: 1}}>
-                        <Button
-                            label={'Tiếp tục'}
-                            flex={1}
-                            onPress={() => router.push('/information/screens/CollectOtherInformationScreen')}
-                        />
-                    </View>
-                }
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </TouchableWithoutFeedback>
     );
 };
 

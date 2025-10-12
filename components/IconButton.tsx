@@ -1,6 +1,6 @@
 import {Ionicons} from "@expo/vector-icons";
-import {StyleSheet, TouchableOpacity, View} from "react-native";
-import {borderRadius, colors, isIOS, padding, size} from "@/constants/theme";
+import {StyleSheet, TouchableOpacity} from "react-native";
+import {borderRadius, isIOS, padding, size} from "@/constants/theme";
 import {useCustomColors} from "@/hooks/useCustomColors";
 import {GlassView} from "expo-glass-effect";
 
@@ -20,7 +20,6 @@ export default function IconButton({name, color, onPress}: Props) {
             // nút icon cho ios
             <GlassView
                 style={{borderRadius: borderRadius}}
-                glassEffectStyle='clear'
                 isInteractive={true}
             >
                 <TouchableOpacity style={styles.touchable} onPress={onPress}>

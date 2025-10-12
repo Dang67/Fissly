@@ -9,8 +9,8 @@ import {useCustomFonts} from "@/hooks/useCustomFonts";
 import Carousel from "react-native-reanimated-carousel/src/components/Carousel";
 import {SafeAreaView} from "react-native-safe-area-context";
 import Card from "@/components/Card";
-import View = Animated.View;
 import {useCustomColors} from "@/hooks/useCustomColors";
+import View = Animated.View;
 
 const screenWidth = Dimensions.get("screen").width;
 const screenHeight = Dimensions.get("screen").height;
@@ -50,6 +50,7 @@ export default function Index() {
                     flex={1}
                     borderRadiusCustom={borderRadius}
                     onPress={() => router.push('/auth/screens/SignInScreen')}
+                    // onPress={() => router.push('/information/screens/CollectWeeklyGoalScreen')}
                 />
             </SafeAreaView>
         </View>
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     icon: {
-        width: size.logo,
-        height: size.logo,
+        width: size.bigLogo,
+        height: size.bigLogo,
     },
 });

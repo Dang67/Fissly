@@ -3,6 +3,8 @@ import {Dimensions, Platform, StyleSheet} from "react-native";
 // màu ứng dụng
 const tintColor = 'rgb(0,106,58)';
 const accentColor = 'rgb(122,122,122)';
+const warningColor = '#d38615';
+const errorColor = '#c61717';
 
 export type ColorTheme = {
     textOnBackground: string;
@@ -10,6 +12,8 @@ export type ColorTheme = {
     background: string;
     tint: string;
     accent: string;
+    warning: string;
+    error: string;
     card: string;
 };
 
@@ -20,6 +24,8 @@ export const colors: { light: ColorTheme; dark: ColorTheme } = {
         background: 'rgb(242,242,246)',
         tint: tintColor,
         accent: accentColor,
+        warning: warningColor,
+        error: errorColor,
         card: 'rgba(255,255,255,0.8)',
     },
     dark: {
@@ -28,7 +34,9 @@ export const colors: { light: ColorTheme; dark: ColorTheme } = {
         background: 'rgb(0,0,0)',
         tint: tintColor,
         accent: accentColor,
-        card: 'rgba(0,0,0,0.8)',
+        warning: warningColor,
+        error: errorColor,
+        card: 'rgb(22,22,24,0.8)',
     },
 };
 
@@ -69,8 +77,9 @@ export const borderRadiusChild = borderRadius - (padding / 2);
 
 // kích thước icon và logo
 export const size = {
-    logo: ((screenWidth + screenHeight) / 2) * 0.3,
-    icon: 20,
+    bigLogo: ((screenWidth + screenWidth) / 2) * 0.6,
+    logo: ((screenWidth + screenHeight) / 2) * 0.2,
+    icon: isIOS ? 22 : 24,
     iconButton: 24,
     avatar: 32,
 };

@@ -4,19 +4,20 @@ import React, {useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import CustomText from "@/components/CustomText";
 import SpaceVertical from "@/components/SpaceVertical";
-import {countries_vi, padding, textStyles} from "@/constants/theme";
+import {countries_vi, isIOS, padding, textStyles} from "@/constants/theme";
 import DatePicker from 'react-native-date-picker'
 import {Picker} from '@react-native-picker/picker';
 import Button from "@/components/Button";
-import IconButton from "@/components/IconButton";
 import {router} from "expo-router";
 import SpaceHorizontal from "@/components/SpaceHorizontal";
+import FooterButtons from "@/app/information/components/FooterButtons";
+import {strings} from "@/app/information/strings";
 
 export default function CollectOtherInformationScreen() {
     const colors = useCustomColors();
 
     const [selectedCurrentResidence, setSelectedCurrentResidence] = useState('Việt Nam');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState<boolean>();
     const today = new Date();
     const maximumDate = new Date(
         today.getFullYear() - 16,
@@ -34,11 +35,12 @@ export default function CollectOtherInformationScreen() {
         <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
             <View>
                 <CustomText style={'title'} color={colors.tint}
-                            text={'Hãy cho tôi biết một chút về bản thân của bạn nhé!'}/>
+                            text={strings.otherInfo.title}/>
+                {isIOS && <SpaceVertical/>}
                 <CustomText style={'paragraph'} color={colors.accent}
-                            text={'Các thông tin dưới đây rất hữu ích cho việc tính toán lượng calo cho bạn.'}/>
+                            text={strings.otherInfo.des}/>
                 <SpaceVertical/>
-                <CustomText style={'button'} text={'Ngày tháng năm sinh của bạn là:'}/>
+                <CustomText style={'button'} text={strings.otherInfo.subTitles.birthday}/>
                 <View style={{flexDirection: 'row'}}>
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <DatePicker
@@ -53,44 +55,52 @@ export default function CollectOtherInformationScreen() {
                 </View>
                 {
                     date > maximumDate ?
-                        <CustomText style={'paragraph'} color={'red'}
-                                    text={'Fissly rất tiếc vì bạn chưa đủ 16 tuổi trở lên để sử dụng ứng dụng này!'}/> :
+                        <CustomText style={'paragraph'} color={colors.error} text={strings.otherInfo.error}/> :
                         <>
-                            <CustomText style={'button'} text={'Giới tính:'}/>
+                            <CustomText style={'button'} text={strings.otherInfo.subTitles.gender}/>
                             <SpaceVertical/>
                             <View style={{flexDirection: 'row'}}>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <View style={{flexDirection: 'row'}}>
                                         <View style={{flex: 1}}>
-                                            <Button flex={1} color={gender === 'male' ? colors.tint : colors.card}
-                                                    label={'Nam'}
-                                                    labelColor={gender === 'male' ? colors.textOnButton : colors.textOnBackground}
-                                                    onPress={() => setGender('male')}/>
+                                            <Button flex={1}
+                                                    color={gender === true ? colors.tint : undefined}
+                                                    label={strings.otherInfo.genderLabel.male}
+                                                    labelColor={
+                                                        gender === true ?
+                                                            colors.textOnButton :
+                                                            colors.textOnBackground}
+                                                    onPress={() => setGender(true)}/>
                                         </View>
                                         <SpaceHorizontal/>
                                         <View style={{flex: 1}}>
-                                            <Button flex={1} color={gender === 'female' ? colors.tint : colors.card}
-                                                    label={'Nữ'}
-                                                    labelColor={gender === 'female' ? colors.textOnButton : colors.textOnBackground}
-                                                    onPress={() => setGender('female')}/>
+                                            <Button flex={1}
+                                                    color={gender === false ? colors.tint : undefined}
+                                                    label={strings.otherInfo.genderLabel.female}
+                                                    labelColor={
+                                                        gender === false ?
+                                                            colors.textOnButton :
+                                                            colors.textOnBackground
+                                                    }
+                                                    onPress={() => setGender(false)}/>
                                         </View>
                                     </View>
                                 </View>
                             </View>
                             {
-                                gender !== '' &&
+                                gender !== undefined &&
                                 <>
                                     <SpaceVertical/>
-                                    <CustomText style={'button'} text={'Quốc gia bạn sinh sống:'}/>
+                                    <CustomText style={'button'} text={strings.otherInfo.subTitles.country}/>
                                     <View style={{flexDirection: 'row'}}>
                                         <View style={{flex: 1, alignItems: 'center'}}>
                                             <Picker
                                                 selectedValue={selectedCurrentResidence}
-                                                onValueChange={(itemValue, itemIndex) =>
+                                                onValueChange={(itemValue) =>
                                                     setSelectedCurrentResidence(itemValue)
                                                 }
                                                 style={{width: '100%'}}
-                                                mode={'dialog'}
+                                                mode={'dropdown'}
                                             >
                                                 {countries_vi.map((country, i) => (
                                                     <Picker.Item key={i} label={country} value={country}/>
@@ -103,23 +113,13 @@ export default function CollectOtherInformationScreen() {
                         </>
                 }
             </View>
-
-            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                <IconButton name='arrow-back' color={colors.textOnBackground} onPress={() => router.back()}/>
-                {
-                    (date <= maximumDate && gender !== '') &&
-                    <>
-                        <SpaceHorizontal/>
-                        <View style={{flex: 1}}>
-                            <Button
-                                label={'Tiếp tục'}
-                                flex={1}
-                                onPress={() => router}
-                            />
-                        </View>
-                    </>
+            <FooterButtons
+                backButton={true}
+                showContinueButton={date <= maximumDate && gender !== undefined}
+                onPressContinueButton={
+                    () => router.push('/information/screens/CollectUserHealthGoalsScreen')
                 }
-            </View>
+            />
         </SafeAreaView>
     );
 };
@@ -127,19 +127,12 @@ export default function CollectOtherInformationScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent:
-            'space-between',
-        paddingTop:
-        padding,
-        paddingHorizontal:
-        padding,
-    }
-    ,
+        justifyContent: 'space-between',
+        paddingTop: padding,
+        paddingHorizontal: padding,
+    },
     input: {
-        ...
-            textStyles.paragraph,
-        textAlign:
-            'left',
-    }
-    ,
+        ...textStyles.paragraph,
+        textAlign: 'left',
+    },
 });

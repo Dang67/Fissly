@@ -9,8 +9,8 @@ import View = Animated.View;
 
 type Props = {
     icon?: keyof typeof Ionicons.glyphMap;
-    iconColor?: string;
     label: string;
+    labelStyle?: 'button' | 'paragraph' | 'description' | 'title';
     labelColor?: string;
     flex?: number;
     borderRadiusCustom?: number;
@@ -20,8 +20,8 @@ type Props = {
 
 export default function Button({
                                    icon,
-                                   iconColor,
                                    label,
+                                   labelStyle,
                                    labelColor,
                                    flex,
                                    borderRadiusCustom,
@@ -35,7 +35,7 @@ export default function Button({
     const dfFlex = flex ? flex : 0;
     const dfBorderRadius = borderRadiusCustom ? borderRadiusCustom : borderRadius;
     const dfColor = color && color;
-    const styleCustomText = 'button';
+    const styleCustomText = labelStyle ? labelStyle : 'button';
 
     return (
         <View style={styles.container}>
@@ -67,7 +67,8 @@ export default function Button({
                 <TouchableOpacity
                     style={{
                         ...styles.button,
-                        padding: padding / 4,
+                        paddingVertical: padding / 4,
+                        paddingHorizontal: padding / 2,
                         flex: dfFlex,
                         borderRadius: dfBorderRadius,
                         backgroundColor: color ? color : colors.card,
