@@ -9,16 +9,36 @@ import {useCustomColors} from "@/hooks/useCustomColors";
 type Props = {
     backButton: boolean;
     showContinueButton: boolean;
+    refreshButton?: boolean;
+    onRefresh: () => void;
     onPressContinueButton: () => void;
 };
 
-export default function FooterButtons({backButton, showContinueButton, onPressContinueButton}: Props) {
+export default function FooterButtons({
+                                          backButton,
+                                          showContinueButton,
+                                          refreshButton = false,
+                                          onRefresh,
+                                          onPressContinueButton
+                                      }: Props) {
     const colors = useCustomColors();
 
     return (
         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-            {backButton ?
-                <IconButton name='arrow-back' color={colors.textOnBackground} onPress={() => router.back()}/> : null}
+            {
+                backButton ?
+                    <>
+                        <IconButton name='arrow-back' color={colors.textOnBackground} onPress={() => router.back()}/>
+                        {
+                            refreshButton &&
+                            <>
+                                <SpaceHorizontal/>
+                                <IconButton name='refresh' color={colors.textOnBackground} onPress={onRefresh}/>
+                            </>
+                        }
+                    </> :
+                    null
+            }
             {backButton && showContinueButton && <SpaceHorizontal/>}
             {
                 showContinueButton ?
@@ -30,7 +50,8 @@ export default function FooterButtons({backButton, showContinueButton, onPressCo
                                 onPress={onPressContinueButton}
                             />
                         </View>
-                    </> : null
+                    </> :
+                    null
             }
         </View>
     );

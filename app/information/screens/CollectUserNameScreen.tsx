@@ -8,7 +8,7 @@ import {router} from "expo-router";
 import SpaceVertical from "@/components/SpaceVertical";
 import {useFocusEffect} from '@react-navigation/native';
 import FooterButtons from "@/app/information/components/FooterButtons";
-import {strings} from "@/app/information/strings";
+import {infoStr} from "@/constants/strings/infoStr";
 
 
 export default function CollectUserNameScreen() {
@@ -37,7 +37,7 @@ export default function CollectUserNameScreen() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <SafeAreaView style={{...styles.container, backgroundColor: bgColor}}>
                 <View>
-                    <CustomText style={'title'} color={titleColor} text={strings.userName.title}/>
+                    <CustomText style={'title'} color={titleColor} text={infoStr.userName.title}/>
                     <SpaceVertical/>
                     <TextInput
                         value={name}
@@ -46,7 +46,7 @@ export default function CollectUserNameScreen() {
                             ...styles.input,
                             color: colors.textOnBackground,
                         }}
-                        placeholder={strings.userName.input.placeholder}
+                        placeholder={infoStr.userName.input.placeholder}
                         autoComplete={'name'}
                         clearButtonMode={'while-editing'}
                         textAlign={'center'}
@@ -54,6 +54,7 @@ export default function CollectUserNameScreen() {
                 </View>
                 <FooterButtons
                     backButton={false}
+                    onRefresh={() => { }}
                     showContinueButton={!!name}
                     onPressContinueButton={
                         () => router.push('/information/screens/CollectOtherInformationScreen')

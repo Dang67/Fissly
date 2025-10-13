@@ -1,10 +1,10 @@
 import {Dimensions, Platform, StyleSheet} from "react-native";
 
 // màu ứng dụng
-const tintColor = 'rgb(0,106,58)';
-const accentColor = 'rgb(122,122,122)';
-const warningColor = '#d38615';
-const errorColor = '#c61717';
+const tintColor = 'forestgreen';
+const accentColor = 'darkgrey';
+const warningColor = 'orange';
+const errorColor = 'red';
 
 export type ColorTheme = {
     textOnBackground: string;
@@ -19,9 +19,9 @@ export type ColorTheme = {
 
 export const colors: { light: ColorTheme; dark: ColorTheme } = {
     light: {
-        textOnBackground: 'rgb(0,0,0)',
-        textOnButton: 'rgb(255,255,255)',
-        background: 'rgb(242,242,246)',
+        textOnBackground: 'black',
+        textOnButton: 'snow',
+        background: 'whitesmoke',
         tint: tintColor,
         accent: accentColor,
         warning: warningColor,
@@ -29,14 +29,14 @@ export const colors: { light: ColorTheme; dark: ColorTheme } = {
         card: 'rgba(255,255,255,0.8)',
     },
     dark: {
-        textOnBackground: 'rgb(255,255,255)',
-        textOnButton: 'rgb(255,255,255)',
-        background: 'rgb(0,0,0)',
+        textOnBackground: 'snow',
+        textOnButton: 'snow',
+        background: 'black',
         tint: tintColor,
         accent: accentColor,
         warning: warningColor,
         error: errorColor,
-        card: 'rgb(22,22,24,0.8)',
+        card: 'rgb(25,25,25,0.8)',
     },
 };
 
@@ -46,21 +46,25 @@ export const textStyles = StyleSheet.create({
         fontFamily: "bold",
         fontSize: 24,
         letterSpacing: 1,
+        textAlign: 'justify',
     },
     paragraph: {
         fontFamily: "regular",
         fontSize: 16,
         letterSpacing: 1,
+        textAlign: 'justify',
     },
     button: {
         fontFamily: "medium",
         fontSize: 18,
         letterSpacing: 1,
+        textAlign: 'justify',
     },
     description: {
         fontFamily: "light",
-        fontSize: 12,
+        fontSize: 14,
         letterSpacing: 1,
+        textAlign: 'justify',
     },
 });
 

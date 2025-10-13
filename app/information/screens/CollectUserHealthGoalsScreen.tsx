@@ -7,7 +7,7 @@ import Button from "@/components/Button";
 import React, {useState} from "react";
 import CustomText from "@/components/CustomText";
 import SpaceVertical from "@/components/SpaceVertical";
-import {strings} from "@/app/information/strings";
+import {infoStr} from "@/constants/strings/infoStr";
 import FooterButtons from "@/app/information/components/FooterButtons";
 
 export default function CollectUserHealthGoalsScreen() {
@@ -17,13 +17,13 @@ export default function CollectUserHealthGoalsScreen() {
     return (
         <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
             <View>
-                <CustomText style={'title'} color={colors.tint} text={strings.userHealthGoals.title}/>
+                <CustomText style={'title'} color={colors.tint} text={infoStr.userHealthGoals.title}/>
                 {isIOS && <SpaceVertical/>}
-                <CustomText style={'paragraph'} color={colors.accent} text={strings.userHealthGoals.des}/>
+                <CustomText style={'paragraph'} color={colors.accent} text={infoStr.userHealthGoals.des}/>
             </View>
             <View>
                 {
-                    strings.userHealthGoals.goals.map((goal) => (
+                    infoStr.userHealthGoals.goals.map((goal) => (
                         <View key={goal}>
                             <View style={{height: padding / 2}}/>
                             <Button
@@ -39,6 +39,7 @@ export default function CollectUserHealthGoalsScreen() {
                 <SpaceVertical/>
                 <FooterButtons
                     backButton={true}
+                    onRefresh={() => { }}
                     showContinueButton={selectedGoal !== ''}
                     onPressContinueButton={
                         () => router.push({

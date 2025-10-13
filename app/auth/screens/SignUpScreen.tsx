@@ -1,22 +1,24 @@
-import {Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View} from "react-native";
+import {Keyboard, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View} from "react-native";
 import {useCustomColors} from "@/hooks/useCustomColors";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Image} from "expo-image";
-import {imagesLocal, isIOS, padding, size, textStyles} from "@/constants/theme";
+import {imagesLocal, isIOS, padding, size} from "@/constants/theme";
 import Card from "@/components/Card";
 import CustomText from "@/components/CustomText";
 import SpaceVertical from "@/components/SpaceVertical";
-import {Ionicons} from "@expo/vector-icons";
 import {useState} from "react";
-import Button from "@/components/Button";
 import {router} from "expo-router";
+import AuthFooterButtons from "@/app/auth/components/AuthFooterButtons";
+import {authStr} from "@/constants/strings/authStr";
+import EmailInput from "@/app/auth/components/EmailInput";
+import PasswordInput from "@/app/auth/components/PasswordInput";
 
 export default function SignUpScreen() {
     const colors = useCustomColors();
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [confirmPassword, setConfirmPassword] = useState<string>("");
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -25,127 +27,46 @@ export default function SignUpScreen() {
                 backgroundColor: colors.background,
             }}>
                 <SafeAreaView style={{...styles.safeAreaView}}>
-                    <Card style={{...styles.card}}>
-                        <Image source={imagesLocal.icon} style={styles.icon}/>
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                <CustomText style={'title'} text={'Đăng ký'}/>
-                            </View>
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={{flex: 1}}>
+                            {isIOS ? null : <SpaceVertical/>}
+                            <Card style={{...styles.card}}>
+                                <Image source={imagesLocal.icon} style={styles.icon}/>
+                                <View style={{flexDirection: 'row'}}>
+                                    <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                        <CustomText style={'title'} text={authStr.signUp}/>
+                                    </View>
+                                </View>
+                                <SpaceVertical/>
+                                <EmailInput email={email} setEmail={setEmail}/>
+                                {isIOS ? <SpaceVertical/> : null}
+                                <PasswordInput
+                                    title={authStr.pass}
+                                    placeholder={authStr.enterPass}
+                                    password={password}
+                                    setPassword={setPassword}
+                                />
+                                {isIOS ? <SpaceVertical/> : null}
+                                <PasswordInput
+                                    title={authStr.confirmPass}
+                                    placeholder={authStr.reEnterPass}
+                                    password={confirmPassword}
+                                    setPassword={setConfirmPassword}
+                                />
+                            </Card>
                         </View>
-                        <SpaceVertical/>
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                <CustomText style={'paragraph'} text={'Email hoặc số điện thoại'}/>
-                            </View>
-                        </View>
-                        {isIOS && <SpaceVertical/>}
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Ionicons
-                                style={{paddingEnd: 8}}
-                                name='mail-outline'
-                                color={colors.textOnBackground}
-                                size={padding / 2}
-                            />
-                            <TextInput
-                                value={email}
-                                onChangeText={(text) => setEmail(text)}
-                                style={{
-                                    ...styles.input,
-                                    color: colors.textOnBackground,
-                                }}
-                                placeholder='Nhập email hoặc SĐT của bạn'
-                                keyboardType='email-address'
-                                autoComplete='email'
-                                clearButtonMode='while-editing'
-                            />
-                        </View>
-                        {isIOS ? <SpaceVertical/> : null}
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                <CustomText style={'paragraph'} text={'Mật khẩu'}/>
-                            </View>
-                        </View>
-                        {isIOS && <SpaceVertical/>}
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Ionicons
-                                style={{paddingEnd: 8}}
-                                name='lock-closed-outline'
-                                color={colors.textOnBackground}
-                                size={padding / 2}
-                            />
-                            <TextInput
-                                value={password}
-                                onChangeText={(text) => setPassword(text)}
-                                style={{
-                                    ...styles.input,
-                                    color: colors.textOnBackground,
-                                }}
-                                placeholder='Nhập mật khẩu'
-                                clearButtonMode='while-editing'
-                                clearTextOnFocus={true}
-                                disableKeyboardShortcuts={true}
-                                secureTextEntry={true}
-                            />
-                        </View>
-                        {isIOS ? <SpaceVertical/> : null}
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                <CustomText style={'paragraph'} text={'Xác nhận mật khẩu'}/>
-                            </View>
-                        </View>
-                        {isIOS && <SpaceVertical/>}
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Ionicons
-                                style={{paddingEnd: 8}}
-                                name='lock-closed-outline'
-                                color={colors.textOnBackground}
-                                size={padding / 2}
-                            />
-                            <TextInput
-                                value={confirmPassword}
-                                onChangeText={(text) => setConfirmPassword(text)}
-                                style={{
-                                    ...styles.input,
-                                    color: colors.textOnBackground,
-                                }}
-                                placeholder='Nhập lại mật khẩu'
-                                clearButtonMode='while-editing'
-                                clearTextOnFocus={true}
-                                disableKeyboardShortcuts={true}
-                                secureTextEntry={true}
-                            />
-                        </View>
-                    </Card>
+                    </View>
                     <View style={{flexDirection: 'row'}}>
                         <View style={{flex: 1, alignItems: 'center'}}>
                             <View style={{flexDirection: 'row'}}>
-                                <View style={{flex: 1}}>
-                                    <Button
-                                        color={colors.tint}
-                                        label='Đăng ký'
-                                        labelColor={colors.textOnButton}
-                                        onPress={() => router.push('/information/screens/CollectUserNameScreen')}
-                                        flex={1}
-                                    />
-                                    <View style={{height: padding / 3}}/>
-                                    <Button
-                                        icon='logo-google'
-                                        label='Đăng nhập với Google'
-                                        labelColor={colors.textOnBackground}
-                                        onPress={() => router.push('/(tabs)/home')}
-                                        flex={1}
-                                    />
-                                    <View style={{height: padding / 3}}/>
-                                    <Button
-                                        icon='logo-facebook'
-                                        label='Đăng nhập với Facebook'
-                                        labelColor={colors.textOnBackground}
-                                        onPress={() => router.push('/(tabs)/home')}
-                                        flex={1}
-                                    />
-                                </View>
+                                <AuthFooterButtons
+                                    labelSubmitButton={authStr.signUp}
+                                    onPressSubmitButton={
+                                        () => router.push('/information/screens/CollectUserNameScreen')
+                                    }
+                                />
                             </View>
-                            {isIOS && <SpaceVertical/>}
+                            <SpaceVertical/>
                             <View style={{flexDirection: 'row'}}>
                                 <View style={{
                                     flexDirection: 'row',
@@ -153,23 +74,15 @@ export default function SignUpScreen() {
                                     alignItems: 'flex-end',
                                     justifyContent: 'center'
                                 }}>
-                                    <Text style={{...textStyles.description, color: colors.textOnBackground}}>
-                                        Bằng việc tiếp tục đăng ký, bạn đã đồng ý với
-                                    </Text>
+                                    <CustomText style={'description'} text={authStr.policyAndTermOfUse + ' '}/>
                                     <TouchableOpacity>
-                                        <CustomText style={'description'} color={colors.tint}
-                                                    text={' Điều khoản sử dụng '}/>
+                                        <CustomText style={'description'} color={colors.tint} text={authStr.tou}/>
                                     </TouchableOpacity>
-                                    <Text style={{...textStyles.description, color: colors.textOnBackground}}>
-                                        và
-                                    </Text>
+                                    <CustomText style={'description'} text={' ' + authStr.and + ' '}/>
                                     <TouchableOpacity>
-                                        <CustomText style={'description'} color={colors.tint}
-                                                    text={' Chính sách bảo mật'}/>
+                                        <CustomText style={'description'} color={colors.tint} text={authStr.policy}/>
                                     </TouchableOpacity>
-                                    <Text style={{...textStyles.description, color: colors.textOnBackground}}>
-                                        .
-                                    </Text>
+                                    <CustomText style={'description'} text={'.'}/>
                                 </View>
                             </View>
                         </View>
@@ -197,10 +110,5 @@ const styles = StyleSheet.create({
     card: {
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    input: {
-        ...textStyles.paragraph,
-        flex: 1,
-        textAlign: 'left',
     },
 });

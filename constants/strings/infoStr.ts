@@ -1,4 +1,4 @@
-export const strings = {
+export const infoStr = {
     userName: {
         title: 'Tôi có thể gọi bạn là gì?',
         input: {
@@ -108,4 +108,8 @@ export const strings = {
             'Duy trì cân nặng của tôi',
         ],
     },
+    minHeight: 'Người thấp nhất (người trưởng thành) được Guinness ghi nhận là Gul Mohammed, với chiều cao khoảng 57 cm (khoảng 1.9 ft).',
+    maxHeight: 'Người cao nhất được Guinness ghi nhận là Sultan Kösen, với chiều cao khoảng 251 cm (khoảng 8.2 ft).',
+    minWeight: 'Người nhẹ nhất (người trưởng thành) được Guinness ghi nhận là Lucía Zárate, với trọng lượng khoảng 2.1 kg (khoảng 4.7 lb) khi 17 tuổi.',
+    maxWeight: 'Người nặng nhất từng được Guinness ghi nhận là Jon Brower Minnoch, với trọng lượng khoảng 635 kg (khoảng 1.400 lb).',
 };

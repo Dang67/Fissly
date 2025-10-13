@@ -8,56 +8,58 @@ import React, {useState} from "react";
 import {Picker} from "@react-native-picker/picker";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
-import convertFtToCm, {convertCmToFt, convertKgToLb, convertLbToKg} from "@/app/information/functions/unitConversion";
-import getBmi, {getBmiInfo} from "@/app/information/functions/getBmi";
+import calculateBmi from "@/app/information/functions/calculateBmi";
 import FooterButtons from "@/app/information/components/FooterButtons";
 import {router, useLocalSearchParams} from "expo-router";
-import {strings} from "@/app/information/strings";
+import getBmiInfo from "@/app/information/functions/getBmiInfo";
+import calculateIdealWeight from "@/app/information/functions/calculateIdealWeight";
+import convertUnit, {UnitType} from "@/app/information/functions/unitConversion";
+import {infoStr} from "@/constants/strings/infoStr";
 
 export default function CollectWeightAndHeightScreen() {
     const colors = useCustomColors();
-    const { goal } = useLocalSearchParams();
+    const {goal} = useLocalSearchParams();
     const parsedGoal = goal ? JSON.parse(goal as string) : null;
 
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
-    const [heightUnit, setHeightUnit] = useState<string>(strings.weightAndHeight.unit.height.cm);
+    const [heightUnit, setHeightUnit] = useState<string>(infoStr.weightAndHeight.unit.height.cm);
     const [toggleHeight, setToggleHeight] = useState<boolean>(true);
-    const [weightUnit, setWeightUnit] = useState<string>(strings.weightAndHeight.unit.weight.kg);
+    const [weightUnit, setWeightUnit] = useState<string>(infoStr.weightAndHeight.unit.weight.kg);
     const [toggleWeight, setToggleWeight] = useState<boolean>(true);
 
-    const heightNum = heightUnit === strings.weightAndHeight.unit.height.cm ?
-        parseFloat(height) :
-        convertFtToCm(parseFloat(height));
-    const weightNum = weightUnit === strings.weightAndHeight.unit.weight.kg ?
-        parseFloat(weight) :
-        convertLbToKg(parseFloat(weight));
-    const bmi = height && weight ? getBmi(heightNum, weightNum) : -1;
+    const heightNum = heightUnit === infoStr.weightAndHeight.unit.height.cm ?
+        parseFloat(height.replace(',', '.')) :
+        convertUnit(parseFloat(height.replace(',', '.')), UnitType.ftToCm);
+    const weightNum = weightUnit === infoStr.weightAndHeight.unit.weight.kg ?
+        parseFloat(weight.replace(',', '.')) :
+        convertUnit(parseFloat(weight.replace(',', '.')), UnitType.lbToKg);
+    const bmi = height && weight ? calculateBmi(heightNum, weightNum) : -1;
     const {text: bmiDes, color: bmiColor} = getBmiInfo(bmi);
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
                 <View>
-                    <CustomText style={'title'} color={colors.tint} text={strings.weightAndHeight.title}/>
+                    <CustomText style={'title'} color={colors.tint} text={infoStr.weightAndHeight.title}/>
                     {isIOS && <SpaceVertical/>}
-                    <CustomText style={'paragraph'} color={colors.accent} text={strings.weightAndHeight.des}/>
+                    <CustomText style={'paragraph'} color={colors.accent} text={infoStr.weightAndHeight.des}/>
                     <SpaceVertical/>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <View style={{flex: 3}}>
                             <TextInput
                                 style={{
                                     ...styles.input,
-                                    color: colors.textOnBackground,
+                                    color: heightNum >= 57 && heightNum <= 251 ? colors.textOnBackground : colors.error,
                                 }}
                                 keyboardType={'numeric'}
-                                placeholder={strings.weightAndHeight.input.height}
+                                placeholder={infoStr.weightAndHeight.input.height}
                                 value={height}
                                 onChangeText={setHeight}
                                 clearButtonMode={'while-editing'}
                             />
                         </View>
-                        <View style={{flex: 2}}>
+                        <View style={{flex: isIOS ? 2 : 1}}>
                             {
                                 isIOS ?
                                     <View style={{flexDirection: 'row'}}>
@@ -67,23 +69,26 @@ export default function CollectWeightAndHeightScreen() {
                                                     <Button
                                                         flex={1}
                                                         color={
-                                                            heightUnit === strings.weightAndHeight.unit.height.cm ?
+                                                            heightUnit === infoStr.weightAndHeight.unit.height.cm ?
                                                                 colors.tint :
                                                                 undefined
                                                         }
-                                                        label={strings.weightAndHeight.unit.height.cm}
+                                                        label={infoStr.weightAndHeight.unit.height.cm}
                                                         labelColor={
-                                                            heightUnit === strings.weightAndHeight.unit.height.cm ?
+                                                            heightUnit === infoStr.weightAndHeight.unit.height.cm ?
                                                                 colors.textOnButton :
                                                                 colors.textOnBackground
                                                         }
                                                         onPress={() => {
-                                                            setHeightUnit(strings.weightAndHeight.unit.height.cm);
+                                                            setHeightUnit(infoStr.weightAndHeight.unit.height.cm);
                                                             setToggleHeight(true);
                                                             setHeight(
                                                                 !toggleHeight ? (
                                                                     height ?
-                                                                        convertFtToCm(parseFloat(height)).toString() :
+                                                                        convertUnit(
+                                                                            parseFloat(height.replace(',', '.')),
+                                                                            UnitType.ftToCm
+                                                                        ).toString() :
                                                                         ''
                                                                 ) : height
                                                             );
@@ -95,23 +100,26 @@ export default function CollectWeightAndHeightScreen() {
                                                     <Button
                                                         flex={1}
                                                         color={
-                                                            heightUnit === strings.weightAndHeight.unit.height.ft ?
+                                                            heightUnit === infoStr.weightAndHeight.unit.height.ft ?
                                                                 colors.tint :
                                                                 undefined
                                                         }
-                                                        label={strings.weightAndHeight.unit.height.ft}
+                                                        label={infoStr.weightAndHeight.unit.height.ft}
                                                         labelColor={
-                                                            heightUnit === strings.weightAndHeight.unit.height.ft ?
+                                                            heightUnit === infoStr.weightAndHeight.unit.height.ft ?
                                                                 colors.textOnButton :
                                                                 colors.textOnBackground
                                                         }
                                                         onPress={() => {
-                                                            setHeightUnit(strings.weightAndHeight.unit.height.ft);
+                                                            setHeightUnit(infoStr.weightAndHeight.unit.height.ft);
                                                             setToggleHeight(false);
                                                             setHeight(
                                                                 toggleHeight ? (
                                                                     height ?
-                                                                        convertCmToFt(parseFloat(height)).toString() :
+                                                                        convertUnit(
+                                                                            parseFloat(height.replace(',', '.')),
+                                                                            UnitType.cmToFt
+                                                                        ).toString() :
                                                                         ''
                                                                 ) : height
                                                             );
@@ -127,18 +135,30 @@ export default function CollectWeightAndHeightScreen() {
                                         selectedValue={heightUnit}
                                         onValueChange={(value) => {
                                             setHeightUnit(value)
-                                            if (value === strings.weightAndHeight.unit.height.cm) {
+                                            if (value === infoStr.weightAndHeight.unit.height.cm) {
                                                 setToggleHeight(true);
                                                 setHeight(
-                                                    !toggleHeight ?
-                                                        (height ? convertFtToCm(parseFloat(height)).toString() : '') :
+                                                    !toggleHeight ? (
+                                                            height ?
+                                                                convertUnit(
+                                                                    parseFloat(height.replace(',', '.')),
+                                                                    UnitType.ftToCm
+                                                                ).toString() :
+                                                                ''
+                                                        ) :
                                                         height
                                                 );
                                             } else {
                                                 setToggleHeight(false);
                                                 setHeight(
-                                                    toggleHeight ?
-                                                        (height ? convertCmToFt(parseFloat(height)).toString() : '') :
+                                                    toggleHeight ? (
+                                                            height ?
+                                                                convertUnit(
+                                                                    parseFloat(height.replace(',', '.')),
+                                                                    UnitType.cmToFt
+                                                                ).toString() :
+                                                                ''
+                                                        ) :
                                                         height
                                                 );
                                             }
@@ -146,33 +166,52 @@ export default function CollectWeightAndHeightScreen() {
                                         mode={'dropdown'}
                                     >
                                         <Picker.Item
-                                            label={strings.weightAndHeight.unit.height.cm}
-                                            value={strings.weightAndHeight.unit.height.cm}
+                                            label={infoStr.weightAndHeight.unit.height.cm}
+                                            value={infoStr.weightAndHeight.unit.height.cm}
                                         />
                                         <Picker.Item
-                                            label={strings.weightAndHeight.unit.height.ft}
-                                            value={strings.weightAndHeight.unit.height.ft}
+                                            label={infoStr.weightAndHeight.unit.height.ft}
+                                            value={infoStr.weightAndHeight.unit.height.ft}
                                         />
                                     </Picker>
                             }
                         </View>
                     </View>
+                    {
+                        heightNum < 57 ?
+                            <>
+                                {isIOS && <SpaceVertical/>}
+                                <CustomText
+                                    style={'description'}
+                                    color={colors.error}
+                                    text={infoStr.minHeight}/>
+                            </> :
+                            heightNum > 251 ?
+                                <>
+                                    {isIOS && <SpaceVertical/>}
+                                    <CustomText
+                                        style={'description'}
+                                        color={colors.error}
+                                        text={infoStr.maxHeight}/>
+                                </> :
+                                null
+                    }
                     {isIOS && <SpaceVertical/>}
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <View style={{flex: 3}}>
                             <TextInput
                                 style={{
                                     ...styles.input,
-                                    color: colors.textOnBackground,
+                                    color: weightNum >= 2.1 && weightNum <= 635 ? colors.textOnBackground : colors.error,
                                 }}
                                 keyboardType={'numeric'}
-                                placeholder={strings.weightAndHeight.input.weight}
+                                placeholder={infoStr.weightAndHeight.input.weight}
                                 value={weight}
                                 onChangeText={setWeight}
                                 clearButtonMode={'while-editing'}
                             />
                         </View>
-                        <View style={{flex: 2}}>
+                        <View style={{flex: isIOS ? 2 : 1}}>
                             {
                                 isIOS ?
                                     <View style={{flexDirection: 'row'}}>
@@ -182,23 +221,27 @@ export default function CollectWeightAndHeightScreen() {
                                                     <Button
                                                         flex={1}
                                                         color={
-                                                            weightUnit === strings.weightAndHeight.unit.weight.kg ?
+                                                            weightUnit === infoStr.weightAndHeight.unit.weight.kg ?
                                                                 colors.tint :
                                                                 undefined
                                                         }
-                                                        label={strings.weightAndHeight.unit.weight.kg}
+                                                        label={infoStr.weightAndHeight.unit.weight.kg}
                                                         labelColor={
-                                                            weightUnit === strings.weightAndHeight.unit.weight.kg ?
+                                                            weightUnit === infoStr.weightAndHeight.unit.weight.kg ?
                                                                 colors.textOnButton :
                                                                 colors.textOnBackground
                                                         }
                                                         onPress={() => {
-                                                            setWeightUnit(strings.weightAndHeight.unit.weight.kg);
+                                                            setWeightUnit(infoStr.weightAndHeight.unit.weight.kg);
                                                             setToggleWeight(true);
                                                             setWeight(
                                                                 !toggleWeight ? (
                                                                         weight ?
-                                                                            convertLbToKg(parseFloat(weight)).toString() :
+                                                                            convertUnit(
+                                                                                parseFloat(
+                                                                                    weight.replace(',', '.')),
+                                                                                UnitType.lbToKg
+                                                                            ).toString() :
                                                                             ''
                                                                     ) :
                                                                     weight
@@ -211,22 +254,26 @@ export default function CollectWeightAndHeightScreen() {
                                                     <Button
                                                         flex={1}
                                                         color={
-                                                            weightUnit === strings.weightAndHeight.unit.weight.lb ?
+                                                            weightUnit === infoStr.weightAndHeight.unit.weight.lb ?
                                                                 colors.tint :
                                                                 undefined
                                                         }
-                                                        label={strings.weightAndHeight.unit.weight.lb}
+                                                        label={infoStr.weightAndHeight.unit.weight.lb}
                                                         labelColor={
-                                                            weightUnit === strings.weightAndHeight.unit.weight.lb ?
+                                                            weightUnit === infoStr.weightAndHeight.unit.weight.lb ?
                                                                 colors.textOnButton :
                                                                 colors.textOnBackground
                                                         }
                                                         onPress={() => {
-                                                            setWeightUnit(strings.weightAndHeight.unit.weight.lb);
+                                                            setWeightUnit(infoStr.weightAndHeight.unit.weight.lb);
                                                             setToggleWeight(false);
                                                             setWeight(
                                                                 toggleWeight ? (
-                                                                        weight ? convertKgToLb(parseFloat(weight)).toString() :
+                                                                        weight ?
+                                                                            convertUnit(
+                                                                                parseFloat(weight.replace(',', '.')),
+                                                                                UnitType.kgToLb
+                                                                            ).toString() :
                                                                             ''
                                                                     ) :
                                                                     weight
@@ -243,18 +290,30 @@ export default function CollectWeightAndHeightScreen() {
                                         selectedValue={weightUnit}
                                         onValueChange={(value) => {
                                             setWeightUnit(value)
-                                            if (value === strings.weightAndHeight.unit.weight.kg) {
+                                            if (value === infoStr.weightAndHeight.unit.weight.kg) {
                                                 setToggleWeight(true);
                                                 setWeight(
-                                                    !toggleWeight ?
-                                                        (weight ? convertLbToKg(parseFloat(weight)).toString() : '') :
+                                                    !toggleWeight ? (
+                                                            weight ?
+                                                                convertUnit(
+                                                                    parseFloat(weight.replace(',', '.')),
+                                                                    UnitType.lbToKg
+                                                                ).toString() :
+                                                                ''
+                                                        ) :
                                                         weight
                                                 );
                                             } else {
                                                 setToggleWeight(false);
                                                 setWeight(
-                                                    toggleWeight ?
-                                                        (weight ? convertKgToLb(parseFloat(weight)).toString() : '') :
+                                                    toggleWeight ? (
+                                                            weight ?
+                                                                convertUnit(
+                                                                    parseFloat(weight.replace(',', '.')),
+                                                                    UnitType.kgToLb
+                                                                ).toString() :
+                                                                ''
+                                                        ) :
                                                         weight
                                                 );
                                             }
@@ -262,36 +321,78 @@ export default function CollectWeightAndHeightScreen() {
                                         mode={'dropdown'}
                                     >
                                         <Picker.Item
-                                            label={strings.weightAndHeight.unit.weight.kg}
-                                            value={strings.weightAndHeight.unit.weight.kg}
+                                            label={infoStr.weightAndHeight.unit.weight.kg}
+                                            value={infoStr.weightAndHeight.unit.weight.kg}
                                         />
                                         <Picker.Item
-                                            label={strings.weightAndHeight.unit.weight.lb}
-                                            value={strings.weightAndHeight.unit.weight.lb}
+                                            label={infoStr.weightAndHeight.unit.weight.lb}
+                                            value={infoStr.weightAndHeight.unit.weight.lb}
                                         />
                                     </Picker>
                             }
                         </View>
                     </View>
+                    {
+                        weightNum < 2.1 ?
+                            <>
+                                {isIOS && <SpaceVertical/>}
+                                <CustomText
+                                    style={'description'}
+                                    color={colors.error}
+                                    text={infoStr.minWeight}/>
+                            </> :
+                            weightNum > 635 ?
+                                <>
+                                    {isIOS && <SpaceVertical/>}
+                                    <CustomText
+                                        style={'description'}
+                                        color={colors.error}
+                                        text={infoStr.maxWeight}/>
+                                </> :
+                                null
+                    }
                     <SpaceVertical/>
                     {
-                        bmi !== -1 &&
-                        <Card>
-                            <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-                                <CustomText style={'button'} text={strings.weightAndHeight.bmiCard.title}/>
-                                <CustomText
-                                    style={'title'}
-                                    color={bmiColor}
-                                    text={`${bmi}`}/>
-                            </View>
-                            {isIOS && <SpaceVertical/>}
-                            <CustomText style={'paragraph'} text={bmiDes}/>
-                        </Card>
+                        heightNum >= 57 && heightNum <= 251 && weightNum >= 2.1 && weightNum <= 635 ?
+                            <>
+                                <Card>
+                                    <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+                                        <CustomText style={'button'} text={infoStr.weightAndHeight.bmiCard.title}/>
+                                        <CustomText
+                                            style={'title'}
+                                            color={bmiColor}
+                                            text={`${bmi}`}/>
+                                    </View>
+                                    {isIOS && <SpaceVertical/>}
+                                    <CustomText style={'paragraph'} text={bmiDes}/>
+                                </Card>
+                                <SpaceVertical/>
+                                <Card>
+                                    <CustomText style={'button'} text={'Cân nặng lý tưởng dành cho bạn là:'}/>
+                                    {isIOS && <SpaceVertical/>}
+                                    <View style={{alignItems: 'center'}}>
+                                        <CustomText
+                                            style={'title'}
+                                            color={colors.tint}
+                                            text={calculateIdealWeight(heightNum) + ' ' + infoStr.weightAndHeight.unit.weight.kg}
+                                        />
+                                    </View>
+                                </Card>
+                            </> : null
                     }
                 </View>
                 <FooterButtons
                     backButton={true}
-                    showContinueButton={height !== '' && weight !== ''}
+                    refreshButton={height !== '' && weight !== ''}
+                    onRefresh={() => {
+                        setHeight('');
+                        setHeightUnit(infoStr.weightAndHeight.unit.height.cm);
+                        setToggleHeight(true);
+                        setWeight('');
+                        setWeightUnit(infoStr.weightAndHeight.unit.weight.kg);
+                        setToggleWeight(true);
+                    }}
+                    showContinueButton={heightNum >= 57 && heightNum <= 251 && weightNum >= 2.1 && weightNum <= 635}
                     onPressContinueButton={
                         () => router.push({
                             pathname: '/information/screens/CollectWeeklyGoalScreen',

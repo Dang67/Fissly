@@ -8,7 +8,7 @@ import Button from "@/components/Button";
 import {router, useLocalSearchParams} from "expo-router";
 import React, {useState} from "react";
 import FooterButtons from "@/app/information/components/FooterButtons";
-import {strings} from "@/app/information/strings";
+import {infoStr} from "@/constants/strings/infoStr";
 
 export default function CollectHabitScreen() {
     const colors = useCustomColors();
@@ -20,8 +20,8 @@ export default function CollectHabitScreen() {
     const toggleSelect = (index: number) => {
         setSelected((prevSelected) => {
             const isSelected = prevSelected.includes(index);
-            const unknownIndex = strings.habit.habits.indexOf('Tôi không biết');
-            const unhealthyIndex = strings.habit.habits.indexOf('Tôi không có thói quen lành mạnh');
+            const unknownIndex = infoStr.habit.habits.indexOf('Tôi không biết');
+            const unhealthyIndex = infoStr.habit.habits.indexOf('Tôi không có thói quen lành mạnh');
 
             if (index === unknownIndex) {
                 return isSelected ? [] : [unknownIndex];
@@ -43,16 +43,16 @@ export default function CollectHabitScreen() {
     return (
         <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
             <View>
-                <CustomText style={'title'} color={colors.tint} text={strings.habit.title}/>
+                <CustomText style={'title'} color={colors.tint} text={infoStr.habit.title}/>
                 {isIOS && <SpaceVertical/>}
-                <CustomText style={'paragraph'} color={colors.accent} text={strings.habit.des}/>
+                <CustomText style={'paragraph'} color={colors.accent} text={infoStr.habit.des}/>
             </View>
             <View>
                 <View style={{flexDirection: 'row'}}>
                     <View style={{flex: 1}}>
                         <View style={{flexDirection: 'row', flexWrap: 'wrap', gap: padding / 2}}>
                             {
-                                strings.habit.habits.map((option, i) => {
+                                infoStr.habit.habits.map((option, i) => {
                                     const isSelected = selected.includes(i);
                                     const isUnknown = option === 'Tôi không biết';
                                     const isUnhealthy = option === 'Tôi không có thói quen lành mạnh';
@@ -83,6 +83,10 @@ export default function CollectHabitScreen() {
                 <FooterButtons
                     backButton={true}
                     showContinueButton={selected.length > 0}
+                    refreshButton={selected.length >= 2}
+                    onRefresh={() => setSelected(prevState => {
+                        return []
+                    })}
                     onPressContinueButton={
                         () => router.push({
                             pathname: '/information/screens/CollectWeightAndHeightScreen',

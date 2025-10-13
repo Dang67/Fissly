@@ -1,0 +1,18 @@
+export const authStr = {
+    signIn: 'Đăng nhập',
+    email: 'Email hoặc số điện thoại',
+    enterEmail: 'Nhập email hoặc SĐT của bạn',
+    pass: 'Mật khẩu',
+    enterPass: 'Nhập mật khẩu',
+    forgotPass: 'Quên mật khẩu?',
+    signUp: 'Đăng ký',
+    dontHaveAcc: 'Bạn chưa có tài khoản? Hãy',
+    confirmPass: 'Xác nhận mật khẩu',
+    reEnterPass: 'Nhập lại mật khẩu',
+    policyAndTermOfUse: 'Bằng việc tiếp tục đăng ký, bạn đã đồng ý với',
+    tou: 'Điều khoản sử dụng',
+    and: 'và',
+    policy: 'Chính sách bảo mật',
+    signInWithGG: 'Đăng nhập với Google',
+    signInWithFB: 'Đăng nhập với Facebook',
+};

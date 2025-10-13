@@ -8,11 +8,11 @@ import SpaceVertical from "@/components/SpaceVertical";
 import Button from "@/components/Button";
 import {router, useLocalSearchParams} from "expo-router";
 import FooterButtons from "@/app/information/components/FooterButtons";
-import {strings} from "@/app/information/strings";
+import {infoStr} from "@/constants/strings/infoStr";
 
 export default function CollectHealthPlanningRegularityScreen() {
     const colors = useCustomColors();
-    const { goal } = useLocalSearchParams();
+    const {goal} = useLocalSearchParams();
     const parsedGoal = goal ? JSON.parse(goal as string) : null;
 
     const [selected, setSelected] = useState<string>('');
@@ -20,13 +20,13 @@ export default function CollectHealthPlanningRegularityScreen() {
     return (
         <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
             <View>
-                <CustomText style={'title'} color={colors.tint} text={strings.healthPlan.title}/>
+                <CustomText style={'title'} color={colors.tint} text={infoStr.healthPlan.title}/>
                 {isIOS && <SpaceVertical/>}
-                <CustomText style={'paragraph'} color={colors.accent} text={strings.healthPlan.des}/>
+                <CustomText style={'paragraph'} color={colors.accent} text={infoStr.healthPlan.des}/>
             </View>
             <View>
                 {
-                    strings.healthPlan.plans.map((option) => (
+                    infoStr.healthPlan.plans.map((option) => (
                         <View key={option}>
                             <View style={{height: padding / 2}}/>
                             <Button
@@ -43,6 +43,7 @@ export default function CollectHealthPlanningRegularityScreen() {
                 <FooterButtons
                     backButton={true}
                     showContinueButton={selected !== ''}
+                    onRefresh={() => { }}
                     onPressContinueButton={
                         () => router.push({
                             pathname: '/information/screens/CollectHabitScreen',

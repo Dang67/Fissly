@@ -8,7 +8,7 @@ import React, {useState} from "react";
 import {router, useLocalSearchParams} from "expo-router";
 import Button from "@/components/Button";
 import FooterButtons from "@/app/information/components/FooterButtons";
-import {strings} from "@/app/information/strings";
+import {infoStr} from "@/constants/strings/infoStr";
 
 export default function CollectWeeklyGoalScreen() {
     const colors = useCustomColors();
@@ -21,16 +21,16 @@ export default function CollectWeeklyGoalScreen() {
         <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
             <View>
                 <CustomText style={'title'} color={colors.tint}
-                            text={strings.weeklyGoals.title}/>
+                            text={infoStr.weeklyGoals.title}/>
                 {isIOS && <SpaceVertical/>}
                 <CustomText style={'paragraph'} color={colors.accent}
-                            text={strings.weeklyGoals.des}/>
+                            text={infoStr.weeklyGoals.des}/>
                 <SpaceVertical/>
             </View>
             <View>
                 {
                     parsedGoal === 'Tăng cân' ?
-                        (strings.weeklyGoals.goals.filter((value =>
+                        (infoStr.weeklyGoals.goals.filter((value =>
                             value.startsWith('T') ||
                             value.startsWith('D')))
                             .map(value => {
@@ -52,7 +52,7 @@ export default function CollectWeeklyGoalScreen() {
                                 )
                             })) :
                         parsedGoal === 'Giảm cân' ?
-                            (strings.weeklyGoals.goals.filter((value =>
+                            (infoStr.weeklyGoals.goals.filter((value =>
                                 value.startsWith('G') ||
                                 value.startsWith('D')))
                                 .map(value => {
@@ -73,7 +73,7 @@ export default function CollectWeeklyGoalScreen() {
                                         </View>
                                     )
                                 })) :
-                            strings.weeklyGoals.goals.map(value => {
+                            infoStr.weeklyGoals.goals.map(value => {
                                 return (
                                     <View key={value}>
                                         <View style={{height: padding / 2}}/>
@@ -95,6 +95,7 @@ export default function CollectWeeklyGoalScreen() {
                 <SpaceVertical/>
                 <FooterButtons
                     backButton={true}
+                    onRefresh={() => {}}
                     showContinueButton={selected !== ''}
                     onPressContinueButton={() => router}
                 />

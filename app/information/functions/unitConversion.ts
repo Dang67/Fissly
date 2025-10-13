@@ -1,15 +1,20 @@
-export default function convertFtToCm(value: number): number {
-    return value <= 0 ? -1 : value * 30.48;
-}
+export enum UnitType { cmToFt, ftToCm, kgToLb, lbToKg }
 
-export function convertCmToFt(value: number): number {
-    return value <= 0 ? -1 : value / 30.48;
-}
+export default function convertUnit(value: number, unit: UnitType): number {
+    switch (unit as UnitType) {
+        case UnitType.cmToFt:
+            return value <= 0 ? -1 : value / 30.48;
 
-export function convertLbToKg(value: number) {
-    return value <= 0 ? -1 : value / 2.2;
-}
+        case UnitType.ftToCm:
+            return value <= 0 ? -1 : value * 30.48;
 
-export function convertKgToLb(value: number) {
-    return value <= 0 ? -1 : value * 2.2;
-}
+        case UnitType.kgToLb:
+            return value <= 0 ? -1 : value * 2.2;
+
+        case UnitType.lbToKg:
+            return value <= 0 ? -1 : value / 2.2;
+
+        default:
+            return 0;
+    }
+};

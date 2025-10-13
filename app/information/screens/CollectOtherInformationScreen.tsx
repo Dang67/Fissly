@@ -11,7 +11,7 @@ import Button from "@/components/Button";
 import {router} from "expo-router";
 import SpaceHorizontal from "@/components/SpaceHorizontal";
 import FooterButtons from "@/app/information/components/FooterButtons";
-import {strings} from "@/app/information/strings";
+import {infoStr} from "@/constants/strings/infoStr";
 
 export default function CollectOtherInformationScreen() {
     const colors = useCustomColors();
@@ -35,12 +35,12 @@ export default function CollectOtherInformationScreen() {
         <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
             <View>
                 <CustomText style={'title'} color={colors.tint}
-                            text={strings.otherInfo.title}/>
+                            text={infoStr.otherInfo.title}/>
                 {isIOS && <SpaceVertical/>}
                 <CustomText style={'paragraph'} color={colors.accent}
-                            text={strings.otherInfo.des}/>
+                            text={infoStr.otherInfo.des}/>
                 <SpaceVertical/>
-                <CustomText style={'button'} text={strings.otherInfo.subTitles.birthday}/>
+                <CustomText style={'button'} text={infoStr.otherInfo.subTitles.birthday}/>
                 <View style={{flexDirection: 'row'}}>
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <DatePicker
@@ -55,9 +55,9 @@ export default function CollectOtherInformationScreen() {
                 </View>
                 {
                     date > maximumDate ?
-                        <CustomText style={'paragraph'} color={colors.error} text={strings.otherInfo.error}/> :
+                        <CustomText style={'paragraph'} color={colors.error} text={infoStr.otherInfo.error}/> :
                         <>
-                            <CustomText style={'button'} text={strings.otherInfo.subTitles.gender}/>
+                            <CustomText style={'button'} text={infoStr.otherInfo.subTitles.gender}/>
                             <SpaceVertical/>
                             <View style={{flexDirection: 'row'}}>
                                 <View style={{flex: 1, alignItems: 'center'}}>
@@ -65,7 +65,7 @@ export default function CollectOtherInformationScreen() {
                                         <View style={{flex: 1}}>
                                             <Button flex={1}
                                                     color={gender === true ? colors.tint : undefined}
-                                                    label={strings.otherInfo.genderLabel.male}
+                                                    label={infoStr.otherInfo.genderLabel.male}
                                                     labelColor={
                                                         gender === true ?
                                                             colors.textOnButton :
@@ -76,7 +76,7 @@ export default function CollectOtherInformationScreen() {
                                         <View style={{flex: 1}}>
                                             <Button flex={1}
                                                     color={gender === false ? colors.tint : undefined}
-                                                    label={strings.otherInfo.genderLabel.female}
+                                                    label={infoStr.otherInfo.genderLabel.female}
                                                     labelColor={
                                                         gender === false ?
                                                             colors.textOnButton :
@@ -91,7 +91,7 @@ export default function CollectOtherInformationScreen() {
                                 gender !== undefined &&
                                 <>
                                     <SpaceVertical/>
-                                    <CustomText style={'button'} text={strings.otherInfo.subTitles.country}/>
+                                    <CustomText style={'button'} text={infoStr.otherInfo.subTitles.country}/>
                                     <View style={{flexDirection: 'row'}}>
                                         <View style={{flex: 1, alignItems: 'center'}}>
                                             <Picker
@@ -115,6 +115,7 @@ export default function CollectOtherInformationScreen() {
             </View>
             <FooterButtons
                 backButton={true}
+                onRefresh={() => { }}
                 showContinueButton={date <= maximumDate && gender !== undefined}
                 onPressContinueButton={
                     () => router.push('/information/screens/CollectUserHealthGoalsScreen')
