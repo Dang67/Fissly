@@ -3,8 +3,8 @@ import {Dimensions, Platform, StyleSheet} from "react-native";
 // màu ứng dụng
 const tintColor = 'forestgreen';
 const accentColor = 'darkgrey';
-const warningColor = 'orange';
-const errorColor = 'red';
+const warningColor = 'coral';
+const errorColor = 'orangered';
 
 export type ColorTheme = {
     textOnBackground: string;
@@ -19,7 +19,7 @@ export type ColorTheme = {
 
 export const colors: { light: ColorTheme; dark: ColorTheme } = {
     light: {
-        textOnBackground: 'black',
+        textOnBackground: 'darkslategray',
         textOnButton: 'snow',
         background: 'whitesmoke',
         tint: tintColor,
@@ -45,25 +45,19 @@ export const textStyles = StyleSheet.create({
     title: {
         fontFamily: "bold",
         fontSize: 24,
-        letterSpacing: 1,
-        textAlign: 'justify',
     },
     paragraph: {
         fontFamily: "regular",
         fontSize: 16,
-        letterSpacing: 1,
         textAlign: 'justify',
     },
     button: {
         fontFamily: "medium",
         fontSize: 18,
-        letterSpacing: 1,
-        textAlign: 'justify',
     },
     description: {
         fontFamily: "light",
         fontSize: 14,
-        letterSpacing: 1,
         textAlign: 'justify',
     },
 });
@@ -75,15 +69,16 @@ export const isIOS = Platform.OS === 'ios';
 // các thông số kỹ thuật
 export const screenWidth = Dimensions.get('window').width;
 export const screenHeight = Dimensions.get('window').height;
-export const padding = ((screenHeight + screenWidth) / 2) * 0.04;
+export const padding = ((screenHeight + screenWidth) * 0.5) * 0.035;
+export const space = padding * 0.55;
 export const borderRadius = 50 - (padding / 2);
-export const borderRadiusChild = borderRadius - (padding / 2);
+export const borderRadiusChild = borderRadius - (padding * 0.5);
 
 // kích thước icon và logo
 export const size = {
     bigLogo: ((screenWidth + screenWidth) / 2) * 0.6,
     logo: ((screenWidth + screenHeight) / 2) * 0.2,
-    icon: isIOS ? 22 : 24,
+    icon: isIOS ? 22 : 26,
     iconButton: 24,
     avatar: 32,
 };

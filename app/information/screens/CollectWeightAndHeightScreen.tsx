@@ -15,10 +15,11 @@ import getBmiInfo from "@/app/information/functions/getBmiInfo";
 import calculateIdealWeight from "@/app/information/functions/calculateIdealWeight";
 import convertUnit, {UnitType} from "@/app/information/functions/unitConversion";
 import {infoStr} from "@/constants/strings/infoStr";
+import SpaceHorizontal from "@/components/SpaceHorizontal";
 
 export default function CollectWeightAndHeightScreen() {
     const colors = useCustomColors();
-    const {goal} = useLocalSearchParams();
+    const {age, goal, gender} = useLocalSearchParams();
     const parsedGoal = goal ? JSON.parse(goal as string) : null;
 
     const [height, setHeight] = useState('');
@@ -95,7 +96,7 @@ export default function CollectWeightAndHeightScreen() {
                                                         }}
                                                     />
                                                 </View>
-                                                <View style={{width: padding / 4}}/>
+                                                <SpaceHorizontal/>
                                                 <View style={{flex: 1}}>
                                                     <Button
                                                         flex={1}
@@ -202,7 +203,12 @@ export default function CollectWeightAndHeightScreen() {
                             <TextInput
                                 style={{
                                     ...styles.input,
-                                    color: weightNum >= 2.1 && weightNum <= 635 ? colors.textOnBackground : colors.error,
+                                    color: weightNum >= 2.1 && weightNum <= 635 ?
+                                        ((heightNum >= 57 && heightNum <= 251 && weightNum >= 2.1 && weightNum <= 635
+                                            && ((parsedGoal === 'Tăng cân' && bmi < 25) ||
+                                                (parsedGoal === 'Giảm cân' && bmi > 18.5) ||
+                                                (parsedGoal !== 'Tăng cân' && parsedGoal !== 'Giảm cân'))) ?
+                                            colors.textOnBackground : colors.warning) : colors.error,
                                 }}
                                 keyboardType={'numeric'}
                                 placeholder={infoStr.weightAndHeight.input.weight}
@@ -249,7 +255,7 @@ export default function CollectWeightAndHeightScreen() {
                                                         }}
                                                     />
                                                 </View>
-                                                <View style={{width: padding / 4}}/>
+                                                <SpaceHorizontal/>
                                                 <View style={{flex: 1}}>
                                                     <Button
                                                         flex={1}
@@ -355,6 +361,20 @@ export default function CollectWeightAndHeightScreen() {
                     {
                         heightNum >= 57 && heightNum <= 251 && weightNum >= 2.1 && weightNum <= 635 ?
                             <>
+                                {
+                                    (heightNum >= 57 && heightNum <= 251 && weightNum >= 2.1 && weightNum <= 635
+                                        && ((parsedGoal === 'Tăng cân' && bmi < 25) ||
+                                            (parsedGoal === 'Giảm cân' && bmi > 18.5) ||
+                                            (parsedGoal !== 'Tăng cân' && parsedGoal !== 'Giảm cân'))) ?
+                                        null :
+                                        <>
+                                            <CustomText
+                                                color={colors.warning}
+                                                text={`Mục tiêu ${parsedGoal.toLocaleUpperCase()} mà bạn định hướng phía trước không phù hợp với cân nặng hiện tại của bạn!!!`}
+                                            />
+                                            <SpaceVertical/>
+                                        </>
+                                }
                                 <Card>
                                     <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
                                         <CustomText style={'button'} text={infoStr.weightAndHeight.bmiCard.title}/>
@@ -366,18 +386,23 @@ export default function CollectWeightAndHeightScreen() {
                                     {isIOS && <SpaceVertical/>}
                                     <CustomText style={'paragraph'} text={bmiDes}/>
                                 </Card>
-                                <SpaceVertical/>
-                                <Card>
-                                    <CustomText style={'button'} text={'Cân nặng lý tưởng dành cho bạn là:'}/>
-                                    {isIOS && <SpaceVertical/>}
-                                    <View style={{alignItems: 'center'}}>
-                                        <CustomText
-                                            style={'title'}
-                                            color={colors.tint}
-                                            text={calculateIdealWeight(heightNum) + ' ' + infoStr.weightAndHeight.unit.weight.kg}
-                                        />
-                                    </View>
-                                </Card>
+                                {
+                                    (bmi < 18.5 || bmi > 25) &&
+                                    <>
+                                        <SpaceVertical/>
+                                        <Card>
+                                            <CustomText style={'button'} text={'Cân nặng lý tưởng dành cho bạn là:'}/>
+                                            <SpaceVertical/>
+                                            <View style={{alignItems: 'center'}}>
+                                                <CustomText
+                                                    style={'title'}
+                                                    color={colors.tint}
+                                                    text={calculateIdealWeight(heightNum) + ' ' + infoStr.weightAndHeight.unit.weight.kg}
+                                                />
+                                            </View>
+                                        </Card>
+                                    </>
+                                }
                             </> : null
                     }
                 </View>
@@ -392,11 +417,23 @@ export default function CollectWeightAndHeightScreen() {
                         setWeightUnit(infoStr.weightAndHeight.unit.weight.kg);
                         setToggleWeight(true);
                     }}
-                    showContinueButton={heightNum >= 57 && heightNum <= 251 && weightNum >= 2.1 && weightNum <= 635}
+                    showContinueButton={
+                        heightNum >= 57 && heightNum <= 251 && weightNum >= 2.1 && weightNum <= 635
+                        && ((parsedGoal === 'Tăng cân' && bmi <= 25) ||
+                            (parsedGoal === 'Giảm cân' && bmi > 18.5) ||
+                            (parsedGoal !== 'Tăng cân' && parsedGoal !== 'Giảm cân'))
+                    }
                     onPressContinueButton={
                         () => router.push({
                             pathname: '/information/screens/CollectWeeklyGoalScreen',
-                            params: {goal: JSON.stringify(parsedGoal)},
+                            params: {
+                                age: age,
+                                gender: gender,
+                                goal: JSON.stringify(parsedGoal),
+                                bmi: JSON.stringify(bmi),
+                                height: height,
+                                weight: weight,
+                            },
                         })
                     }
                 />

@@ -12,8 +12,7 @@ import {infoStr} from "@/constants/strings/infoStr";
 
 export default function CollectHabitScreen() {
     const colors = useCustomColors();
-    const {goal} = useLocalSearchParams();
-    const parsedGoal = goal ? JSON.parse(goal as string) : null;
+    const {age, gender} = useLocalSearchParams();
 
     const [selected, setSelected] = useState<number[]>([]);
 
@@ -89,8 +88,11 @@ export default function CollectHabitScreen() {
                     })}
                     onPressContinueButton={
                         () => router.push({
-                            pathname: '/information/screens/CollectWeightAndHeightScreen',
-                            params: {goal: JSON.stringify(parsedGoal)},
+                            pathname: '/information/screens/CollectUserHealthGoalsScreen',
+                            params: {
+                                age: age,
+                                gender: gender,
+                            },
                         })
                     }
                 />

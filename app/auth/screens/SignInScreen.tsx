@@ -37,14 +37,23 @@ export default function SignInScreen() {
                                     </View>
                                 </View>
                                 <SpaceVertical/>
+                                <SpaceVertical/>
                                 <EmailInput email={email} setEmail={setEmail}/>
-                                {isIOS ? <SpaceVertical/> : null}
+                                {
+                                    isIOS ?
+                                        <>
+                                            <SpaceVertical/>
+                                            <SpaceVertical/>
+                                        </> :
+                                        null
+                                }
                                 <PasswordInput
                                     title={authStr.pass}
                                     placeholder={authStr.enterPass}
                                     password={password}
                                     setPassword={setPassword}
                                 />
+                                <SpaceVertical/>
                                 <SpaceVertical/>
                                 <View style={{flexDirection: 'row'}}>
                                     <View style={{flex: 1, alignItems: 'flex-start'}}>

@@ -21,7 +21,7 @@ export const infoStr = {
     },
     userHealthGoals: {
         title: 'Mục tiêu của bạn là gì?',
-        des: 'Hãy để Fissly là người bạn đồng  lên mục tiêu cho bạn nhé!',
+        des: 'Hãy để Fissly là người bạn đồng hành lên mục tiêu cho bạn nhé!',
         goals: [
             'Giảm cân',
             'Duy trì cân nặng',
@@ -112,4 +112,11 @@ export const infoStr = {
     maxHeight: 'Người cao nhất được Guinness ghi nhận là Sultan Kösen, với chiều cao khoảng 251 cm (khoảng 8.2 ft).',
     minWeight: 'Người nhẹ nhất (người trưởng thành) được Guinness ghi nhận là Lucía Zárate, với trọng lượng khoảng 2.1 kg (khoảng 4.7 lb) khi 17 tuổi.',
     maxWeight: 'Người nặng nhất từng được Guinness ghi nhận là Jon Brower Minnoch, với trọng lượng khoảng 635 kg (khoảng 1.400 lb).',
+    happy: 'Cảm ơn bạn đã tin tưởng Fissly!',
+    desHappy: 'Hành trình và kế hoạch của bạn đã sẵn sàng. Hãy cố gắng lên nhé!',
+    paraHappy1: 'Fissly đã ước tính được lượng calo hàng ngày cho bạn để bạn có thể theo dõi bản thân.',
+    calOnDate: 'Calo/ngày',
+    calOnWeek: 'Calo/tuần',
+    paraHappy2: 'Cân nặng và chiều cao của bạn sẽ cho bạn biết TDEE cần nạp trong 1 ngày',
+    tdeeOnDate: 'TDEE cần nạp trong một ngày của bạn',
 };

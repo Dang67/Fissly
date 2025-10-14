@@ -4,6 +4,7 @@ import {router} from "expo-router";
 import {padding} from "@/constants/theme";
 import {useCustomColors} from "@/hooks/useCustomColors";
 import {authStr} from "@/constants/strings/authStr";
+import SpaceVertical from "@/components/SpaceVertical";
 
 type Props = {
     labelSubmitButton: string;
@@ -22,7 +23,7 @@ export default function AuthFooterButtons({labelSubmitButton, onPressSubmitButto
                 onPress={onPressSubmitButton}
                 flex={1}
             />
-            <View style={{height: padding / 3}}/>
+            <SpaceVertical/>
             <Button
                 icon='logo-google'
                 label={authStr.signInWithGG}
@@ -30,7 +31,7 @@ export default function AuthFooterButtons({labelSubmitButton, onPressSubmitButto
                 onPress={() => router.push('/(tabs)/home')}
                 flex={1}
             />
-            <View style={{height: padding / 3}}/>
+            <SpaceVertical/>
             <Button
                 icon='logo-facebook'
                 label={authStr.signInWithFB}

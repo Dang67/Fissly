@@ -2,7 +2,7 @@ import {StyleSheet, View} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {isIOS, padding} from "@/constants/theme";
 import {useCustomColors} from "@/hooks/useCustomColors";
-import {router} from "expo-router";
+import {router, useLocalSearchParams} from "expo-router";
 import Button from "@/components/Button";
 import React, {useState} from "react";
 import CustomText from "@/components/CustomText";
@@ -12,6 +12,8 @@ import FooterButtons from "@/app/information/components/FooterButtons";
 
 export default function CollectUserHealthGoalsScreen() {
     const colors = useCustomColors();
+    const {age, gender} = useLocalSearchParams();
+
     const [selectedGoal, setSelectedGoal] = useState('');
 
     return (
@@ -39,13 +41,18 @@ export default function CollectUserHealthGoalsScreen() {
                 <SpaceVertical/>
                 <FooterButtons
                     backButton={true}
-                    onRefresh={() => { }}
+                    onRefresh={() => {
+                    }}
                     showContinueButton={selectedGoal !== ''}
                     onPressContinueButton={
                         () => router.push({
-                                pathname: '/information/screens/CollectHealthPlanningRegularityScreen',
-                                params: {goal: JSON.stringify(selectedGoal)},
-                            })
+                            pathname: '/information/screens/CollectWeightAndHeightScreen',
+                            params: {
+                                age: age,
+                                gender: gender,
+                                goal: JSON.stringify(selectedGoal),
+                            },
+                        })
                     }
                 />
             </View>

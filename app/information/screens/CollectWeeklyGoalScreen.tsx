@@ -12,8 +12,10 @@ import {infoStr} from "@/constants/strings/infoStr";
 
 export default function CollectWeeklyGoalScreen() {
     const colors = useCustomColors();
-    const {goal} = useLocalSearchParams();
+    const {age, gender, goal, bmi, height, weight} = useLocalSearchParams();
     const parsedGoal = goal ? JSON.parse(goal as string) : null;
+    const parsedBmi = bmi ? JSON.parse(bmi as string) : null;
+    const bmiNum = parseFloat(parsedBmi);
 
     const [selected, setSelected] = useState('');
 
@@ -31,8 +33,7 @@ export default function CollectWeeklyGoalScreen() {
                 {
                     parsedGoal === 'Tăng cân' ?
                         (infoStr.weeklyGoals.goals.filter((value =>
-                            value.startsWith('T') ||
-                            value.startsWith('D')))
+                            value.startsWith('T')))
                             .map(value => {
                                 return (
                                     <View key={value}>
@@ -53,8 +54,7 @@ export default function CollectWeeklyGoalScreen() {
                             })) :
                         parsedGoal === 'Giảm cân' ?
                             (infoStr.weeklyGoals.goals.filter((value =>
-                                value.startsWith('G') ||
-                                value.startsWith('D')))
+                                value.startsWith('G')))
                                 .map(value => {
                                     return (
                                         <View key={value}>
@@ -73,31 +73,87 @@ export default function CollectWeeklyGoalScreen() {
                                         </View>
                                     )
                                 })) :
-                            infoStr.weeklyGoals.goals.map(value => {
-                                return (
-                                    <View key={value}>
-                                        <View style={{height: padding / 2}}/>
-                                        <Button
-                                            flex={1}
-                                            color={selected.includes(value) ? colors.tint : undefined}
-                                            label={value}
-                                            labelColor={
-                                                selected.includes(value) ?
-                                                    colors.textOnButton :
-                                                    colors.textOnBackground
-                                            }
-                                            onPress={() => setSelected(value)}
-                                        />
-                                    </View>
-                                )
-                            })
+                            parsedGoal !== 'Tăng cân' && parsedGoal !== "Giảm cân" && bmiNum < 18.5 ?
+                                (infoStr.weeklyGoals.goals.filter((value =>
+                                    value.startsWith('T') ||
+                                    value.startsWith('D')))
+                                    .map(value => {
+                                        return (
+                                            <View key={value}>
+                                                <View style={{height: padding / 2}}/>
+                                                <Button
+                                                    flex={1}
+                                                    color={selected.includes(value) ? colors.tint : undefined}
+                                                    label={value}
+                                                    labelColor={
+                                                        selected.includes(value) ?
+                                                            colors.textOnButton :
+                                                            colors.textOnBackground
+                                                    }
+                                                    onPress={() => setSelected(value)}
+                                                />
+                                            </View>
+                                        )
+                                    })) :
+                                parsedGoal !== 'Tăng cân' && parsedGoal !== "Giảm cân" && bmiNum >= 25 ?
+                                    (infoStr.weeklyGoals.goals.filter((value =>
+                                        value.startsWith('G') ||
+                                        value.startsWith('D')))
+                                        .map(value => {
+                                            return (
+                                                <View key={value}>
+                                                    <View style={{height: padding / 2}}/>
+                                                    <Button
+                                                        flex={1}
+                                                        color={selected.includes(value) ? colors.tint : undefined}
+                                                        label={value}
+                                                        labelColor={
+                                                            selected.includes(value) ?
+                                                                colors.textOnButton :
+                                                                colors.textOnBackground
+                                                        }
+                                                        onPress={() => setSelected(value)}
+                                                    />
+                                                </View>
+                                            )
+                                        })) :
+                                    infoStr.weeklyGoals.goals.map(value => {
+                                        return (
+                                            <View key={value}>
+                                                <View style={{height: padding / 2}}/>
+                                                <Button
+                                                    flex={1}
+                                                    color={selected.includes(value) ? colors.tint : undefined}
+                                                    label={value}
+                                                    labelColor={
+                                                        selected.includes(value) ?
+                                                            colors.textOnButton :
+                                                            colors.textOnBackground
+                                                    }
+                                                    onPress={() => setSelected(value)}
+                                                />
+                                            </View>
+                                        )
+                                    })
                 }
                 <SpaceVertical/>
                 <FooterButtons
                     backButton={true}
-                    onRefresh={() => {}}
+                    onRefresh={() => {
+                    }}
                     showContinueButton={selected !== ''}
-                    onPressContinueButton={() => router}
+                    onPressContinueButton={
+                        () => router.push({
+                            pathname: '/information/screens/SummaryScreen',
+                            params: {
+                                age: age,
+                                gender: gender,
+                                height: height,
+                                weight: weight,
+                                weeklyGoal: selected,
+                            },
+                        })
+                    }
                 />
             </View>
         </SafeAreaView>

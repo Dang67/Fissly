@@ -1,9 +1,9 @@
 import {Animated} from "react-native";
 import View = Animated.View;
-import {padding} from "@/constants/theme";
+import {padding, space} from "@/constants/theme";
 
 export default function SpaceVertical() {
     return (
-        <View style={{height: padding}}/>
+        <View style={{height: space}}/>
     );
 }

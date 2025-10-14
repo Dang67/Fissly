@@ -38,15 +38,30 @@ export default function SignUpScreen() {
                                     </View>
                                 </View>
                                 <SpaceVertical/>
+                                <SpaceVertical/>
                                 <EmailInput email={email} setEmail={setEmail}/>
-                                {isIOS ? <SpaceVertical/> : null}
+                                {
+                                    isIOS ?
+                                        <>
+                                            <SpaceVertical/>
+                                            <SpaceVertical/>
+                                        </> :
+                                        null
+                                }
                                 <PasswordInput
                                     title={authStr.pass}
                                     placeholder={authStr.enterPass}
                                     password={password}
                                     setPassword={setPassword}
                                 />
-                                {isIOS ? <SpaceVertical/> : null}
+                                {
+                                    isIOS ?
+                                        <>
+                                            <SpaceVertical/>
+                                            <SpaceVertical/>
+                                        </> :
+                                        null
+                                }
                                 <PasswordInput
                                     title={authStr.confirmPass}
                                     placeholder={authStr.reEnterPass}

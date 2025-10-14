@@ -50,7 +50,7 @@ export default function Index() {
                     flex={1}
                     borderRadiusCustom={borderRadius}
                     onPress={() => router.push('/auth/screens/SignInScreen')}
-                    // onPress={() => router.push('/information/screens/CollectWeeklyGoalScreen')}
+                    // onPress={() => router.push('/information/screens/SummaryScreen')}
                 />
             </SafeAreaView>
         </View>

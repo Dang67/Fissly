@@ -30,6 +30,7 @@ export default function CollectOtherInformationScreen() {
         today.getDate(),
     )
     const [date, setDate] = useState(maximumDate);
+    const age = today.getFullYear() - date.getFullYear();
 
     return (
         <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
@@ -115,10 +116,17 @@ export default function CollectOtherInformationScreen() {
             </View>
             <FooterButtons
                 backButton={true}
-                onRefresh={() => { }}
+                onRefresh={() => {
+                }}
                 showContinueButton={date <= maximumDate && gender !== undefined}
                 onPressContinueButton={
-                    () => router.push('/information/screens/CollectUserHealthGoalsScreen')
+                    () => router.push({
+                        pathname: '/information/screens/CollectHealthPlanningRegularityScreen',
+                        params: {
+                            age: age,
+                            gender: gender ? infoStr.otherInfo.genderLabel.male : infoStr.otherInfo.genderLabel.female,
+                        }
+                    })
                 }
             />
         </SafeAreaView>

@@ -19,7 +19,7 @@ export default function FooterButtons({
                                           showContinueButton,
                                           refreshButton = false,
                                           onRefresh,
-                                          onPressContinueButton
+                                          onPressContinueButton,
                                       }: Props) {
     const colors = useCustomColors();
 
