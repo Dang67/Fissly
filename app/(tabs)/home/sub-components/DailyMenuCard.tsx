@@ -6,7 +6,7 @@ import IconButton from "@/components/IconButton";
 import SpaceHorizontal from "@/components/SpaceHorizontal";
 import * as Progress from 'react-native-progress';
 import Card from "@/components/Card";
-import {size} from "@/constants/theme";
+import {borderRadius, padding, size} from "@/constants/theme";
 import {useCustomColors} from "@/hooks/useCustomColors";
 
 type Props = {
@@ -83,6 +83,7 @@ export default function DailyMenuCard({value = 0, total = 100, session, ssData, 
                             />
                             <SpaceVertical/>
                             <Progress.Bar
+                                height={padding * 0.1}
                                 progress={percent}
                                 style={{width: '100%'}}
                                 color={color}

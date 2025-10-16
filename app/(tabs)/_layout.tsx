@@ -4,7 +4,6 @@ import {Icon, NativeTabs, VectorIcon} from "expo-router/unstable-native-tabs";
 import {useFocusEffect} from "@react-navigation/native";
 import {useCallback} from "react";
 import {Ionicons} from "@expo/vector-icons";
-import IconButton from "@/components/IconButton";
 
 export default function TabLayout() {
     const colors = useCustomColors();
@@ -59,8 +58,6 @@ export default function TabLayout() {
             >
                 <Icon src={<VectorIcon family={Ionicons} name='person'/>}/>
             </NativeTabs.Trigger>
-            <IconButton name='add' onPress={() => {
-            }}/>
         </NativeTabs>
     );
 };
