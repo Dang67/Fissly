@@ -3,8 +3,9 @@ import CustomText from "@/components/CustomText";
 import {authStr} from "@/constants/strings/authStr";
 import {isIOS, size, textStyles} from "@/constants/theme";
 import SpaceVertical from "@/components/SpaceVertical";
-import {Ionicons} from "@expo/vector-icons";
+import {FontAwesome6, Ionicons} from "@expo/vector-icons";
 import {useCustomColors} from "@/hooks/useCustomColors";
+import {Icon, VectorIcon} from "expo-router/unstable-native-tabs";
 
 type Props = {
     email: string;
@@ -18,7 +19,7 @@ export default function EmailInput({email, setEmail}: Props) {
         <>
             <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1, alignItems: 'flex-start'}}>
-                    <CustomText style={'button'} text={authStr.email}/>
+                    <CustomText style={'paragraph'} text={authStr.email}/>
                 </View>
             </View>
             {isIOS && <SpaceVertical/>}

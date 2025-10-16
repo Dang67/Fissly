@@ -2,9 +2,9 @@ import CustomText from "@/components/CustomText";
 import {infoStr} from "@/constants/strings/infoStr";
 import {isIOS, padding} from "@/constants/theme";
 import SpaceVertical from "@/components/SpaceVertical";
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {StyleSheet, View} from "react-native";
+import {Animated, StyleSheet, View} from "react-native";
 import {useCustomColors} from "@/hooks/useCustomColors";
 import {router, useLocalSearchParams} from "expo-router";
 import FooterButtons from "@/app/information/components/FooterButtons";
@@ -20,7 +20,6 @@ export default function SummaryScreen() {
     const ageNum = parseInt(age as string);
     const heightNum = parseFloat(height as string);
     const weightNum = parseFloat(weight as string);
-    console.log(weeklyGoal)
 
     const calDate = calculateBmr(ageNum, genderBoolean, heightNum, weightNum)
     const showCalDate = getTdee(calDate, '').toFixed(0).toString();
@@ -29,6 +28,8 @@ export default function SummaryScreen() {
     const showTdee = tdee.toFixed(0).toString();
     const calWeek = tdee * 7;
     const showCalWeek = calWeek.toFixed(0).toString();
+
+    const [showCard, setShowCard] = useState(false);
 
     return (
         <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
@@ -59,9 +60,24 @@ export default function SummaryScreen() {
                 </View>
                 <SpaceVertical/>
                 <SpaceVertical/>
-                <CustomText style={'paragraph'} text={infoStr.paraHappy2}/>
+                <CustomText
+                    style="paragraph"
+                    text={infoStr.paraHappy2}
+                    lastIcon="information-circle"
+                    onPressIcon={() => setShowCard(!showCard)}
+                />
                 <SpaceVertical/>
                 <Card style={{alignItems: 'center'}}>
+                    {showCard &&
+                        <>
+                            <CustomText
+                                style="description"
+                                textAlign="justify"
+                                text={infoStr.tdeeInfo}
+                            />
+                            <SpaceVertical/>
+                        </>
+                    }
                     <CustomText text={infoStr.tdeeOnDate}/>
                     {isIOS && <SpaceVertical/>}
                     <CustomText style={'title'} text={showTdee}/>

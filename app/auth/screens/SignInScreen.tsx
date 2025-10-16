@@ -56,11 +56,12 @@ export default function SignInScreen() {
                                 <SpaceVertical/>
                                 <SpaceVertical/>
                                 <View style={{flexDirection: 'row'}}>
-                                    <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                    <View style={{flex: 1, alignItems: 'center'}}>
                                         <TouchableOpacity onPress={
                                             () => alert('Bạn đã nhấn vào Quên mật khẩu.')
                                         }>
-                                            <CustomText text={authStr.forgotPass} color={colors.tint}
+                                            <CustomText text={authStr.forgotPass}
+                                                        color={colors.tint}
                                                         style='paragraph'/>
                                         </TouchableOpacity>
                                     </View>
@@ -73,7 +74,7 @@ export default function SignInScreen() {
                             <View style={{flexDirection: 'row'}}>
                                 <AuthFooterButtons
                                     labelSubmitButton={authStr.signIn}
-                                    onPressSubmitButton={() => router.push('/(tabs)/home')}
+                                    onPressSubmitButton={() => router.replace('/(tabs)/home')}
                                 />
                             </View>
                             <SpaceVertical/>

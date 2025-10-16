@@ -4,6 +4,7 @@ import {GlassView} from "expo-glass-effect";
 import {StyleSheet, View} from "react-native";
 import {useCustomColors} from "@/hooks/useCustomColors";
 import {StyleProps} from "react-native-reanimated";
+import {BlurView} from "expo-blur";
 
 type Props = PropsWithChildren<{
     children?: ReactNode;
@@ -55,6 +56,8 @@ const styles = StyleSheet.create({
     card: {
         flex: 1,
         padding: padding,
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: borderRadius,
     },
 });

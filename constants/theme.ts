@@ -6,15 +6,34 @@ const accentColor = 'darkgrey';
 const warningColor = 'coral';
 const errorColor = 'orangered';
 
+// màu của calo
+const goalColor = 'royalblue';
+const loadedColor = 'mediumaquamarine';
+const burnedColor = 'coral';
+
+// màu của buổi
+const morningColor = 'sandybrown';
+const afternoonColor = 'tomato';
+const eveningColor = 'cornflowerblue';
+const snackColor = 'rosybrown';
+
 export type ColorTheme = {
     textOnBackground: string;
     textOnButton: string;
     background: string;
+    textOnBlur: string;
     tint: string;
     accent: string;
     warning: string;
     error: string;
     card: string;
+    goal: string;
+    loaded: string;
+    burned: string;
+    morning: string;
+    afternoon: string;
+    evening: string;
+    snack: string;
 };
 
 export const colors: { light: ColorTheme; dark: ColorTheme } = {
@@ -22,21 +41,37 @@ export const colors: { light: ColorTheme; dark: ColorTheme } = {
         textOnBackground: 'darkslategray',
         textOnButton: 'snow',
         background: 'whitesmoke',
+        textOnBlur: 'black',
         tint: tintColor,
         accent: accentColor,
         warning: warningColor,
         error: errorColor,
         card: 'rgba(255,255,255,0.8)',
+        goal: goalColor,
+        loaded: loadedColor,
+        burned: burnedColor,
+        morning: morningColor,
+        afternoon: afternoonColor,
+        evening: eveningColor,
+        snack: snackColor,
     },
     dark: {
         textOnBackground: 'snow',
         textOnButton: 'snow',
         background: 'black',
+        textOnBlur: 'white',
         tint: tintColor,
         accent: accentColor,
         warning: warningColor,
         error: errorColor,
         card: 'rgb(25,25,25,0.8)',
+        goal: goalColor,
+        loaded: loadedColor,
+        burned: burnedColor,
+        morning: morningColor,
+        afternoon: afternoonColor,
+        evening: eveningColor,
+        snack: snackColor,
     },
 };
 
@@ -57,7 +92,7 @@ export const textStyles = StyleSheet.create({
     },
     description: {
         fontFamily: "light",
-        fontSize: 14,
+        fontSize: 12,
         textAlign: 'justify',
     },
 });
@@ -71,7 +106,7 @@ export const screenWidth = Dimensions.get('window').width;
 export const screenHeight = Dimensions.get('window').height;
 export const padding = ((screenHeight + screenWidth) * 0.5) * 0.035;
 export const space = padding * 0.55;
-export const borderRadius = 50 - (padding / 2);
+export const borderRadius = 55 - (padding / 2);
 export const borderRadiusChild = borderRadius - (padding * 0.5);
 
 // kích thước icon và logo
@@ -80,7 +115,9 @@ export const size = {
     logo: ((screenWidth + screenHeight) / 2) * 0.2,
     icon: isIOS ? 22 : 26,
     iconButton: 24,
-    avatar: 32,
+    avatar: 44,
+    iconText: 14,
+    bigIcon: 48,
 };
 
 // đường dẫn source ảnh local

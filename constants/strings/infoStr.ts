@@ -119,4 +119,5 @@ export const infoStr = {
     calOnWeek: 'Calo/tuần',
     paraHappy2: 'Cân nặng và chiều cao của bạn sẽ cho bạn biết TDEE cần nạp trong 1 ngày',
     tdeeOnDate: 'TDEE cần nạp trong một ngày của bạn',
+    tdeeInfo: 'TDEE (Total Daily Energy Expenditure) là tổng năng lượng mà cơ thể tiêu hao trong một ngày để duy trì mọi hoạt động như hô hấp, tuần hoàn, tiêu hóa, làm việc và vận động. Đây là chỉ số cho biết bạn cần bao nhiêu calo mỗi ngày để duy trì cân nặng hiện tại.',
 };

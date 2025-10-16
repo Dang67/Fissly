@@ -48,7 +48,6 @@ export default function CollectUserNameScreen() {
                         }}
                         placeholder={infoStr.userName.input.placeholder}
                         autoComplete={'name'}
-                        clearButtonMode={'while-editing'}
                         textAlign={'center'}
                     />
                 </View>

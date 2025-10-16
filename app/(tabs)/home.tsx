@@ -1,33 +1,35 @@
-import {StyleSheet, View} from "react-native";
-import CustomText from "@/components/CustomText";
-import {AnimatedScrollView} from "react-native-reanimated/src/component/ScrollView";
+import {ScrollView, StyleSheet} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {borderRadius, imagesOnl, padding, size} from "@/constants/theme";
+import {isIOS, padding} from "@/constants/theme";
 import {useCustomColors} from "@/hooks/useCustomColors";
-import {Image} from "expo-image";
-import SpaceHorizontal from "@/components/SpaceHorizontal";
+import SpaceVertical from "@/components/SpaceVertical";
+import Overview from "@/app/(tabs)/home/components/Overview";
+import Header from "@/app/(tabs)/home/components/Header";
+import DailyMenu from "@/app/(tabs)/home/components/DailyMenu";
+import HomeScreen from "@/app/(tabs)/home/HomeScreen";
 
 export default function Home() {
     const colors = useCustomColors();
 
     return (
-        <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
-            <AnimatedScrollView style={styles.scroll}>
-                <View style={styles.row}>
-                    <Image
-                        style={{...styles.avt, backgroundColor: colors.accent}}
-                        source={imagesOnl.defaultAvatar}
-                    />
-                    <SpaceHorizontal/>
-                    <View>
-                        <CustomText style={'button'} text={'Xin chào, Đăng'}/>
-                        <CustomText style={'description'} text={'Thứ hai, ngày 1, tháng 1, năm 2001'}/>
-                    </View>
-                </View>
-            </AnimatedScrollView>
-        </SafeAreaView>
+        <ScrollView style={{...styles.scroll, backgroundColor: colors.background}}>
+            {
+                isIOS ?
+                    <HomeScreen/>
+                    :
+                    <SafeAreaView>
+                        <HomeScreen/>
+                        <SpaceVertical/>
+                        <SpaceVertical/>
+                        <SpaceVertical/>
+                        <SpaceVertical/>
+                        <SpaceVertical/>
+                        <SpaceVertical/>
+                    </SafeAreaView>
+            }
+        </ScrollView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -35,17 +37,5 @@ const styles = StyleSheet.create({
     },
     scroll: {
         paddingHorizontal: padding,
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    col: {
-
-    },
-    avt: {
-        width: size.avatar,
-        height: size.avatar,
-        borderRadius: borderRadius,
     },
 });

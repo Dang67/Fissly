@@ -20,7 +20,7 @@ export default function PasswordInput({ title, placeholder, password, setPasswor
         <>
             <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1, alignItems: 'flex-start'}}>
-                    <CustomText style={'button'} text={title}/>
+                    <CustomText style={'paragraph'} text={title}/>
                 </View>
             </View>
             {isIOS && <SpaceVertical/>}
