@@ -2,6 +2,7 @@ import {StyleSheet, View} from "react-native";
 import CustomText from "@/components/CustomText";
 import SpaceVertical from "@/components/SpaceVertical";
 import SpaceHorizontal from "@/components/SpaceHorizontal";
+import {homeStr} from "@/constants/strings/homeStr";
 import DailyMenuCard from "@/app/(tabs)/home/sub-components/DailyMenuCard";
 
 export default function DailyMenu() {
@@ -25,7 +26,7 @@ export default function DailyMenu() {
 
     return (
         <View>
-            <CustomText style={'button'} text={'Theo dõi thực đơn hàng ngày'}/>
+            <CustomText style={'button'} text={homeStr.trackDailyMenu}/>
             <SpaceVertical/>
             <View style={styles.row}>
                 <View style={styles.col}>

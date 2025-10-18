@@ -42,7 +42,8 @@ export default function CollectHealthPlanningRegularityScreen() {
                 <FooterButtons
                     backButton={true}
                     showContinueButton={selected !== ''}
-                    onRefresh={() => { }}
+                    onRefresh={() => {
+                    }}
                     onPressContinueButton={
                         () => router.push({
                             pathname: '/information/screens/CollectHabitScreen',

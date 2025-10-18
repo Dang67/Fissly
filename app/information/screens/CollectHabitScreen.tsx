@@ -83,7 +83,7 @@ export default function CollectHabitScreen() {
                     backButton={true}
                     showContinueButton={selected.length > 0}
                     refreshButton={selected.length >= 2}
-                    onRefresh={() => setSelected(prevState => {
+                    onRefresh={() => setSelected(() => {
                         return []
                     })}
                     onPressContinueButton={

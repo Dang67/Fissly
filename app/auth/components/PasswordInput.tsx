@@ -1,6 +1,5 @@
 import {StyleSheet, TextInput, View} from "react-native";
 import CustomText from "@/components/CustomText";
-import {authStr} from "@/constants/strings/authStr";
 import {isIOS, size, textStyles} from "@/constants/theme";
 import SpaceVertical from "@/components/SpaceVertical";
 import {Ionicons} from "@expo/vector-icons";
@@ -13,7 +12,7 @@ type Props = {
     setPassword: (newPassword: string) => void,
 };
 
-export default function PasswordInput({ title, placeholder, password, setPassword }: Props) {
+export default function PasswordInput({title, placeholder, password, setPassword}: Props) {
     const colors = useCustomColors();
 
     return (

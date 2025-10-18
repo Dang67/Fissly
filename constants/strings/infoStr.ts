@@ -82,7 +82,7 @@ export const infoStr = {
             },
         },
         bmiCard: {
-            title: 'BMI của bạn là: ',
+            title: 'Chỉ số khối cơ thể (BMI) của bạn là: ',
             message: {
                 underWeight: "Bạn đang thiếu cân rồi đấy! Hãy bổ sung thêm dinh dưỡng và tăng cường bữa ăn mỗi ngày để cơ thể khoẻ mạnh và tràn đầy năng lượng nhé!",
                 healthyWeight: "Cơ thể bạn đang trong trạng thái cân đối và khoẻ mạnh! Hãy tiếp tục duy trì chế độ ăn uống và luyện tập hiện tại nhé!",

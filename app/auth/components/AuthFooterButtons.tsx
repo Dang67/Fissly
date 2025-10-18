@@ -1,7 +1,6 @@
 import {View} from "react-native";
 import Button from "@/components/Button";
 import {router} from "expo-router";
-import {padding} from "@/constants/theme";
 import {useCustomColors} from "@/hooks/useCustomColors";
 import {authStr} from "@/constants/strings/authStr";
 import SpaceVertical from "@/components/SpaceVertical";

@@ -3,10 +3,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {isIOS, padding} from "@/constants/theme";
 import {useCustomColors} from "@/hooks/useCustomColors";
 import SpaceVertical from "@/components/SpaceVertical";
-import Overview from "@/app/(tabs)/home/components/Overview";
-import Header from "@/app/(tabs)/home/components/Header";
-import DailyMenu from "@/app/(tabs)/home/components/DailyMenu";
-import HomeScreen from "@/app/(tabs)/home/HomeScreen";
+import HomeScreen from "@/app/(tabs)/home/homeScreen";
 
 export default function Home() {
     const colors = useCustomColors();

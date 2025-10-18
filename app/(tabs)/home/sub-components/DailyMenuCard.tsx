@@ -1,13 +1,14 @@
 import {Image} from "expo-image";
 import SpaceVertical from "@/components/SpaceVertical";
 import CustomText from "@/components/CustomText";
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import IconButton from "@/components/IconButton";
 import SpaceHorizontal from "@/components/SpaceHorizontal";
 import * as Progress from 'react-native-progress';
 import Card from "@/components/Card";
-import {borderRadius, padding, size} from "@/constants/theme";
+import {padding, size} from "@/constants/theme";
 import {useCustomColors} from "@/hooks/useCustomColors";
+import {homeStr} from "@/constants/strings/homeStr";
 
 type Props = {
     value: number;
@@ -22,30 +23,30 @@ export default function DailyMenuCard({value = 0, total = 100, session, ssData, 
     const percent = value / total;
     let imgSrc = require('@/assets/images/session-icons/morning-icon.png')
     let color = colors.morning;
-    let sessionStr = 'Buổi sáng';
+    let sessionStr = homeStr.morning;
     switch (session) {
         case 0:
             imgSrc = require('@/assets/images/session-icons/morning-icon.png');
             color = colors.morning;
-            sessionStr = 'Buổi sáng';
+            sessionStr = homeStr.morning;
             break;
 
         case 1:
             imgSrc = require('@/assets/images/session-icons/afternoon-icon.png');
             color = colors.afternoon;
-            sessionStr = 'Buổi chiều';
+            sessionStr = homeStr.afternoon;
             break;
 
         case 2:
             imgSrc = require('@/assets/images/session-icons/evening-icon.png');
             color = colors.evening;
-            sessionStr = 'Buổi tối';
+            sessionStr = homeStr.evening;
             break;
 
         case 3:
             imgSrc = require('@/assets/images/session-icons/snack-icon.png');
             color = colors.snack;
-            sessionStr = 'Thức ăn nhanh';
+            sessionStr = homeStr.snack;
             break;
 
         default:
@@ -64,23 +65,28 @@ export default function DailyMenuCard({value = 0, total = 100, session, ssData, 
             <SpaceVertical/>
             <View style={styles.row}>
                 <View style={styles.col}>
-                    <View style={{...styles.row, alignItems: 'center', justifyContent: 'space-between'}}>
+                    <View style={{...styles.row, alignItems: 'flex-end', justifyContent: 'space-between'}}>
                         <View>
                             <View style={styles.row}>
                                 <IconButton
                                     name='add'
                                     onPress={onAddPress}
+                                    color={color}
                                 />
                             </View>
                         </View>
                         <SpaceHorizontal/>
                         <View style={styles.col}>
-                            <CustomText
-                                text={value + ' / ' + total + 'g'}
-                                style={'description'}
-                                textAlign={'right'}
-                                color={color}
-                            />
+                            <Text
+                                style={{
+                                    fontFamily: 'bold',
+                                    textAlign: 'right',
+                                    fontSize: 10,
+                                    color: color
+                                }}
+                            >
+                                {value} / {total} g
+                            </Text>
                             <SpaceVertical/>
                             <Progress.Bar
                                 height={padding * 0.1}

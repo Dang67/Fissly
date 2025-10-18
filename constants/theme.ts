@@ -2,7 +2,7 @@ import {Dimensions, Platform, StyleSheet} from "react-native";
 
 // màu ứng dụng
 const tintColor = 'forestgreen';
-const accentColor = 'darkgrey';
+const accentColor = 'dimgray';
 const warningColor = 'coral';
 const errorColor = 'orangered';
 
@@ -21,7 +21,6 @@ export type ColorTheme = {
     textOnBackground: string;
     textOnButton: string;
     background: string;
-    textOnBlur: string;
     tint: string;
     accent: string;
     warning: string;
@@ -38,10 +37,9 @@ export type ColorTheme = {
 
 export const colors: { light: ColorTheme; dark: ColorTheme } = {
     light: {
-        textOnBackground: 'darkslategray',
-        textOnButton: 'snow',
+        textOnBackground: 'black',
+        textOnButton: 'whitesmoke',
         background: 'whitesmoke',
-        textOnBlur: 'black',
         tint: tintColor,
         accent: accentColor,
         warning: warningColor,
@@ -56,10 +54,9 @@ export const colors: { light: ColorTheme; dark: ColorTheme } = {
         snack: snackColor,
     },
     dark: {
-        textOnBackground: 'snow',
-        textOnButton: 'snow',
+        textOnBackground: 'whitesmoke',
+        textOnButton: 'whitesmoke',
         background: 'black',
-        textOnBlur: 'white',
         tint: tintColor,
         accent: accentColor,
         warning: warningColor,
@@ -78,7 +75,11 @@ export const colors: { light: ColorTheme; dark: ColorTheme } = {
 // phong cách các kiểu chữ
 export const textStyles = StyleSheet.create({
     title: {
-        fontFamily: "bold",
+        fontFamily: 'heavy',
+        fontSize: 28,
+    },
+    subtitle: {
+        fontFamily: 'bold',
         fontSize: 24,
     },
     paragraph: {
@@ -87,12 +88,12 @@ export const textStyles = StyleSheet.create({
         textAlign: 'justify',
     },
     button: {
-        fontFamily: "medium",
+        fontFamily: "semibold",
         fontSize: 18,
     },
     description: {
         fontFamily: "light",
-        fontSize: 12,
+        fontSize: 14,
         textAlign: 'justify',
     },
 });

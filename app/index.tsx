@@ -1,4 +1,4 @@
-import {Animated, Dimensions, StyleSheet} from "react-native";
+import {Dimensions, StyleSheet, View} from "react-native";
 import {borderRadius, borderRadiusChild, imagesLocal, onboardingBackground, padding, size} from "@/constants/theme";
 import {router} from "expo-router";
 import Button from "@/components/Button";
@@ -9,7 +9,6 @@ import Carousel from "react-native-reanimated-carousel/src/components/Carousel";
 import {useCustomColors} from "@/hooks/useCustomColors";
 import SpaceVertical from "@/components/SpaceVertical";
 import {BlurView} from "expo-blur";
-import View = Animated.View;
 
 const screenWidth = Dimensions.get("screen").width;
 const screenHeight = Dimensions.get("screen").height;
@@ -35,36 +34,17 @@ export default function Index() {
                 />
             </View>
             <View style={styles.container}>
-                {/*<Card*/}
-                {/*    glassEffect={true}*/}
-                {/*    style={styles.card}*/}
-                {/*>*/}
-                {/*    <CustomText style='title' color={colors.textOnButton} text='Chào mừng bạn đến với'/>*/}
-                {/*    <Image source={imagesLocal.icon} style={styles.icon}/>*/}
-                {/*    <CustomText style='paragraph'*/}
-                {/*                color={colors.textOnButton}*/}
-                {/*                text='Hiểu cơ thể, yêu bản thân. Nếu bạn chưa thể hãy để Fissly lo.'/>*/}
-                {/*    <SpaceVertical/>*/}
-                {/*    <Button*/}
-                {/*        color={colors.tint}*/}
-                {/*        label='Bắt đầu ngay'*/}
-                {/*        labelColor={colors.textOnButton}*/}
-                {/*        flex={1}*/}
-                {/*        borderRadiusCustom={borderRadiusChild}*/}
-                {/*        onPress={() => router.push('/auth/screens/SignInScreen')}*/}
-                {/*        // onPress={() => router.push('/information/screens/SummaryScreen')}*/}
-                {/*    />*/}
-                {/*</Card>*/}
                 <BlurView
                     style={styles.card}
                 >
                     <CustomText style='title'
-                                color={colors.textOnBlur}
+                                color={colors.textOnBackground}
+                                textAlign={'center'}
                                 text='Chào mừng bạn đến với'/>
                     <Image source={imagesLocal.icon} style={styles.icon}/>
                     <CustomText style='button'
                                 textAlign={'center'}
-                                color={colors.textOnBlur}
+                                color={colors.textOnBackground}
                                 text='Hiểu cơ thể, yêu bản thân. Nếu bạn chưa thể hãy để Fissly lo.'/>
                     <SpaceVertical/>
                     <Button
@@ -74,7 +54,6 @@ export default function Index() {
                         flex={1}
                         borderRadiusCustom={borderRadiusChild}
                         onPress={() => router.push('/auth/screens/SignInScreen')}
-                        // onPress={() => router.push('/information/screens/SummaryScreen')}
                     />
                 </BlurView>
             </View>

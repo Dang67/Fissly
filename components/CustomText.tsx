@@ -1,9 +1,8 @@
 import {StyleSheet, Text, TextStyle, TouchableOpacity} from "react-native";
 import {PropsWithChildren} from "react";
 import {useCustomColors} from "@/hooks/useCustomColors";
-import {padding, size, textStyles} from "@/constants/theme";
+import {size, textStyles} from "@/constants/theme";
 import {Ionicons} from "@expo/vector-icons";
-import SpaceHorizontal from "@/components/SpaceHorizontal";
 
 type Props = PropsWithChildren<{
     style?: keyof typeof textStyles;

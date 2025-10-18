@@ -1,9 +1,9 @@
 import {AnimatedScrollView} from "react-native-reanimated/src/component/ScrollView";
-import {StyleSheet, useColorScheme} from "react-native";
-import {borderRadius, colors, padding, size} from "@/constants/theme";
+import {StyleSheet} from "react-native";
+import {borderRadius, padding, size} from "@/constants/theme";
 import CustomText from "@/components/CustomText";
 import {useCustomColors} from "@/hooks/useCustomColors";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 export default function Profile() {
     const colors = useCustomColors();
@@ -11,8 +11,8 @@ export default function Profile() {
     return (
         <SafeAreaView style={{...styles.container, backgroundColor: colors.background}}>
             <AnimatedScrollView style={styles.scroll}>
-            <CustomText text='Đây là màn hình Hồ sơ'/>
-        </AnimatedScrollView>
+                <CustomText text='Đây là màn hình Hồ sơ'/>
+            </AnimatedScrollView>
         </SafeAreaView>
     );
 };

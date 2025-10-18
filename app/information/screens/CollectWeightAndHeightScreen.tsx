@@ -375,31 +375,32 @@ export default function CollectWeightAndHeightScreen() {
                                             <SpaceVertical/>
                                         </>
                                 }
-                                <Card>
-                                    <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-                                        <CustomText style={'button'} text={infoStr.weightAndHeight.bmiCard.title}/>
-                                        <CustomText
-                                            style={'title'}
-                                            color={bmiColor}
-                                            text={`${bmi}`}/>
-                                    </View>
+                                <Card style={{alignItems: 'stretch'}}>
+                                    <CustomText style={'paragraph'} text={infoStr.weightAndHeight.bmiCard.title}/>
                                     {isIOS && <SpaceVertical/>}
-                                    <CustomText style={'paragraph'} text={bmiDes}/>
+                                    <CustomText
+                                        style={'title'}
+                                        textAlign={'center'}
+                                        color={bmiColor}
+                                        text={`${bmi}`}
+                                    />
+                                    {isIOS && <SpaceVertical/>}
+                                    <CustomText textAlign={'justify'} style={'description'} text={bmiDes}/>
                                 </Card>
                                 {
                                     (bmi < 18.5 || bmi > 25) &&
                                     <>
                                         <SpaceVertical/>
-                                        <Card>
-                                            <CustomText style={'button'} text={'Cân nặng lý tưởng dành cho bạn là:'}/>
+                                        <Card style={{alignItems: 'stretch'}}>
+                                            <CustomText style={'paragraph'}
+                                                        text={'Cân nặng lý tưởng dành cho bạn là:'}/>
                                             <SpaceVertical/>
-                                            <View style={{alignItems: 'center'}}>
-                                                <CustomText
-                                                    style={'title'}
-                                                    color={colors.tint}
-                                                    text={calculateIdealWeight(heightNum) + ' ' + infoStr.weightAndHeight.unit.weight.kg}
-                                                />
-                                            </View>
+                                            <CustomText
+                                                style={'title'}
+                                                textAlign={'center'}
+                                                color={colors.tint}
+                                                text={calculateIdealWeight(heightNum) + ' ' + infoStr.weightAndHeight.unit.weight.kg}
+                                            />
                                         </Card>
                                     </>
                                 }
@@ -450,7 +451,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: padding,
     },
     input: {
-        ...textStyles.title,
+        ...textStyles.subtitle,
         textAlign: 'left',
     },
 });

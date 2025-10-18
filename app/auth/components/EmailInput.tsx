@@ -3,9 +3,8 @@ import CustomText from "@/components/CustomText";
 import {authStr} from "@/constants/strings/authStr";
 import {isIOS, size, textStyles} from "@/constants/theme";
 import SpaceVertical from "@/components/SpaceVertical";
-import {FontAwesome6, Ionicons} from "@expo/vector-icons";
+import {Ionicons} from "@expo/vector-icons";
 import {useCustomColors} from "@/hooks/useCustomColors";
-import {Icon, VectorIcon} from "expo-router/unstable-native-tabs";
 
 type Props = {
     email: string;

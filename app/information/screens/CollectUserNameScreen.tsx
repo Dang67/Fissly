@@ -53,7 +53,8 @@ export default function CollectUserNameScreen() {
                 </View>
                 <FooterButtons
                     backButton={false}
-                    onRefresh={() => { }}
+                    onRefresh={() => {
+                    }}
                     showContinueButton={!!name}
                     onPressContinueButton={
                         () => router.push('/information/screens/CollectOtherInformationScreen')

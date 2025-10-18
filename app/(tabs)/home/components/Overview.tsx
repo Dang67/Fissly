@@ -3,12 +3,11 @@ import {StyleSheet, View} from "react-native";
 import {useCustomColors} from "@/hooks/useCustomColors";
 import CustomText from "@/components/CustomText";
 import Button from "@/components/Button";
-import {borderRadius, borderRadiusChild, padding} from "@/constants/theme";
+import {borderRadius, borderRadiusChild} from "@/constants/theme";
 import SpaceVertical from "@/components/SpaceVertical";
 import CircularProgress from "react-native-circular-progress-indicator";
 import SpaceHorizontal from "@/components/SpaceHorizontal";
 import {homeStr} from "@/constants/strings/homeStr";
-import {Ionicons} from "@expo/vector-icons";
 
 export default function Overview() {
     const colors = useCustomColors();

@@ -1,6 +1,6 @@
 import {Animated} from "react-native";
+import {space} from "@/constants/theme";
 import View = Animated.View;
-import {padding, space} from "@/constants/theme";
 
 export default function SpaceHorizontal() {
     return (
