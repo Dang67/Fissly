@@ -1,53 +1,67 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+// màu thương hiệu
+import {padding} from "@/constants/specifications";
+import {StyleSheet} from "react-native";
 
-import { Platform } from 'react-native';
+export const tintColor = 'forestgreen';
+export const textOnTintColor = 'whitesmoke';
+export const accentColor = 'dimgray';
+export const warningColor = 'coral';
+export const errorColor = 'orangered';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// màu của calo
+export const goalColor = 'royalblue';
+export const loadedColor = 'mediumaquamarine';
+export const burnedColor = 'coral';
+
+// màu của buổi
+export const morningColor = 'sandybrown';
+export const afternoonColor = 'tomato';
+export const eveningColor = 'cornflowerblue';
+export const snackColor = 'rosybrown';
+
+// màu hạng mục
+export const weightColor = 'mediumaquamarine';
+export const exerciseVideoColor = 'crimson';
+export const menuColor = 'peru';
+export const articleColor = 'cornflowerblue';
 
 export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+    light: {
+        text: 'black',
+        background: 'whitesmoke',
+        card: 'rgb(0,0,0,0.025)',
+    },
+    dark: {
+        text: 'whitesmoke',
+        background: 'black',
+        card: 'rgb(255,255,255,0.025)',
+    },
 };
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
+export const TextStyles = StyleSheet.create({
+    title: {
+        fontFamily: "heavy",
+        fontSize: padding * 1.25,
+        textAlign: "center",
+    },
+    subtitle: {
+        fontFamily: "bold",
+        fontSize: padding * 0.9,
+        textAlign: "center",
+    },
+    paragraph: {
+        fontFamily: "regular",
+        fontSize: padding * 0.65,
+        textAlign: "justify",
+    },
+    button: {
+        fontFamily: "semibold",
+        fontSize: padding * 0.75,
+        textAlign: "center",
+    },
+    description: {
+        fontFamily: "light",
+        fontSize: padding * 0.6,
+        textAlign: "justify",
+    },
 });
